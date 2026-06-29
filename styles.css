@@ -22,7 +22,7 @@
   --sans:"Noto Sans SC","Bricolage Grotesque",-apple-system,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 /* cool ambient glow + faint grid */
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -58,11 +58,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .logo{width:36px;height:36px;border-radius:9px;background:url("assets/logo.svg") center/cover no-repeat;flex:0 0 auto}
 .brand-txt b{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.02em;display:block;line-height:1}
 .brand-txt span{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.22em}
-.navlinks{display:flex;gap:36px;font-size:14.5px;font-weight:500}
-.navlinks a{position:relative;padding:4px 0;color:var(--ink-2);transition:.25s}
-.navlinks a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--accent);transition:.3s}
-.navlinks a:hover,.navlinks a.active{color:var(--ink)}
-.navlinks a:hover::after,.navlinks a.active::after{width:100%}
+/* segmented pill nav — a clear, tappable section switcher */
+.navlinks{display:inline-flex;align-items:center;gap:4px;background:var(--bg-2);border:1px solid var(--line);border-radius:100px;padding:5px;box-shadow:inset 0 1px 2px rgba(10,12,16,.05)}
+.navlinks a{position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:100px;font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--muted);transition:color .25s,background .25s,box-shadow .3s cubic-bezier(.2,.7,.2,1),transform .2s}
+.navlinks a:hover{color:var(--ink);background:rgba(255,255,255,.62)}
+.navlinks a:active{transform:translateY(.5px)}
+.navlinks a.active{color:var(--ink);background:var(--paper);box-shadow:0 2px 9px -2px rgba(20,28,48,.22),0 0 0 1px rgba(10,12,16,.04)}
+.navlinks a.active::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);flex:0 0 auto;animation:pulse 2.4s infinite}
 .nav-actions{display:flex;gap:12px;align-items:center}
 .menu-btn{display:none}
 
@@ -321,7 +323,7 @@ footer{background:var(--ink);color:#9aa3b2;padding:64px 0 34px;position:relative
   .navlinks,.nav-actions .btn-dark{display:none}
   .menu-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.6);cursor:pointer}
   .hero-grid,.detail-hero{grid-template-columns:1fr;gap:28px}
-  .stage{height:440px;order:-1}
+  .stage{height:440px;order:-1;overflow:hidden}
   .d-scene{height:300px;order:-1}
   .mla,.help,.scen-grid,.why-grid{grid-template-columns:1fr}
   .grid-agents{grid-template-columns:repeat(2,1fr)}
@@ -339,5 +341,5 @@ footer{background:var(--ink);color:#9aa3b2;padding:64px 0 34px;position:relative
   .wrap{padding:0 18px}
   .cats,.grid-agents{grid-template-columns:repeat(2,1fr)}
   .create{flex-direction:column;align-items:flex-start}
-  .nav-prev{left:-2px}.nav-next{right:-2px}
+  .nav-prev{left:6px}.nav-next{right:6px}
 }
