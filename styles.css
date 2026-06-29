@@ -78,7 +78,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 
 /* ===== HERO (home) ===== */
 .hero{padding:56px 0 64px}
-.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start}
 .hero h1{font-size:clamp(46px,6.2vw,84px);font-weight:800;line-height:.98;letter-spacing:-.04em}
 .hero h1 .en{font-family:var(--serif);font-weight:700}
 .hero h1 .em{color:transparent;-webkit-text-stroke:1.6px var(--ink)}
@@ -86,7 +86,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .hero-cta{margin-top:38px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 
 /* carousel */
-.stage{position:relative;height:520px}
+.stage{position:relative;height:520px;align-self:center}
 .moon-amb{position:absolute;inset:-12% 0 0 0;background:radial-gradient(closest-side, rgba(77,124,255,.40), rgba(25,199,230,.10) 55%, transparent 72%);filter:blur(14px);z-index:0;animation:breathe 7s ease-in-out infinite}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.08);opacity:1}}
 .track{position:relative;height:100%;z-index:1}
@@ -178,8 +178,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .bigcta .btn-dark:hover{box-shadow:0 14px 36px -12px rgba(59,91,255,.7)}
 
 /* ===== STORE ===== */
-.store-hero{padding:48px 0 20px;position:relative}
-.store-hero h1{font-size:clamp(44px,6vw,78px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.store-hero{padding:56px 0 20px;position:relative}
+/* store has no eyebrow — pad its h1 down so the big title lines up with the eyebrow pages (home/dev) */
+.store-hero .wrap:not(.dev-hero) h1{margin-top:54px}
+.store-hero h1{font-size:clamp(46px,6.2vw,84px);font-weight:800;letter-spacing:-.04em;line-height:.98}
 .store-hero p{margin-top:16px;font-size:18px;color:var(--ink-2);font-weight:300}
 .search{margin-top:30px;max-width:460px;display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 20px;box-shadow:var(--shadow-sm);transition:.25s}
 .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(59,91,255,.12)}
