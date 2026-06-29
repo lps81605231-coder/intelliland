@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>intelliland · 精品智能体</title>
+<meta name="description" content="intelliland 精品智能体 —— 每一个智能体都是精心打造的产品，为真实场景而生，陪你走得更温暖。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="mobile-menu" id="mm">
+  <button class="mm-close" onclick="toggleMenu()">×</button>
+  <a href="store.html">智能体商店</a>
+  <a href="dev.html">创建智能体</a>
+  <a href="https://www.wuyong.me/app" style="color:var(--accent)">立即体验 →</a>
+</div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html">
+        <span class="logo"></span>
+        <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
+      </a>
+      <div class="navlinks">
+        <a href="store.html">智能体商店</a>
+        <a href="dev.html">创建智能体</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-dark" href="https://www.wuyong.me/app">立即体验</a>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow reveal in"><span class="dot"></span>Most Lovable Agents · 为真实场景而生</span>
+      <h1 class="reveal in" data-d="1">从一个好<br><span class="en">Agent</span> <span class="em">开始</span></h1>
+      <p class="lead reveal in" data-d="2">每一个智能体，都是精心打造的产品，为真实场景而生，帮你解决真正的问题。</p>
+      <div class="hero-cta reveal in" data-d="3">
+        <a class="btn btn-dark" href="store.html">探索精品智能体 <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#mla">了解 MLA 标准</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="moon-amb"></div>
+      <div class="track" id="track"></div>
+      <button class="nav-btn nav-prev" onclick="move(-1)">‹</button>
+      <button class="nav-btn nav-next" onclick="move(1)">›</button>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MLA ============ -->
+<section class="band pad" id="mla">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>好 Agent 怎么判断 —— MLA 的 3 个标准</h2>
+      <p class="sub" style="font-family:var(--serif);letter-spacing:.06em">Most Lovable Agent</p>
+    </div>
+    <div class="mla">
+      <div class="mla-card reveal" data-d="1">
+        <div class="mla-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+        <div><h3>可分享</h3><p>很值得说，有人一起参与，不只是一个人使用。</p></div>
+      </div>
+      <div class="mla-card reveal" data-d="2">
+        <div class="mla-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></div>
+        <div><h3>可回顾</h3><p>可以被回顾、被沉淀，值得反复回味的价值体验。</p></div>
+      </div>
+      <div class="mla-card reveal" data-d="3">
+        <div class="mla-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div>
+        <div><h3>可订阅</h3><p>值得持续订阅，让创作者获得长期回报。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 创建 ============ -->
+<section class="pad" id="about">
+  <div class="wrap">
+    <div class="create reveal">
+      <div class="ci">
+        <div class="spark">✦</div>
+        <div>
+          <h3>动手创建属于自己的 Agent</h3>
+          <p>为你所信赖的场景，分享价值，链接更多用户。</p>
+        </div>
+      </div>
+      <div class="create-stream" aria-hidden="true">
+        <div class="cstream-row"><div class="ctrack" id="ctrackA"></div></div>
+        <div class="cstream-row"><div class="ctrack rev" id="ctrackB"></div></div>
+      </div>
+      <a class="btn btn-dark" href="dev.html">开始创建 <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIG CTA ============ -->
+<section class="band" style="padding:64px 0 96px">
+  <div class="wrap">
+    <div class="bigcta reveal">
+      <div class="glow"></div>
+      <h2>一起体验值得留下来的智能体</h2>
+      <p>从学习，到生活，让它们陪你走得更温暖。</p>
+      <a class="btn btn-dark" href="https://www.wuyong.me/app">立即体验 <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="data.js"></script>
+<script>
+/* 轮播：取 featured 智能体 */
+const slides = AGENTS.filter(a => a.featured);
+let cur = Math.min(1, slides.length - 1);
+const track = document.getElementById('track');
+const dots = document.getElementById('dots');
+slides.forEach((a, i) => {
+  const c = document.createElement('a');
+  c.href = `agent.html?id=${a.id}`;
+  if (a.img) {
+    c.className = 'card-s has-img';
+    c.innerHTML = `<img class="cs-bg" src="${a.img}" alt="${a.title}" loading="lazy">
+      <div class="cs-inner">
+        <div></div>
+        <div><h3>${a.title}</h3><p>${a.subtitle}</p><div class="more">查看详情 →</div></div>
+      </div>`;
+  } else {
+    c.className = 'card-s ' + a.scene;
+    c.innerHTML = `${a.stars ? '<div class="deco-stars"></div>' : ''}${a.moon ? '<div class="orb"></div>' : ''}
+      <div class="cs-inner">
+        <div class="cs-ico">${a.icon}</div>
+        <div><h3>${a.title}</h3><p>${a.subtitle}</p><div class="more">查看详情 →</div></div>
+      </div>`;
+  }
+  track.appendChild(c);
+  const d = document.createElement('span');
+  d.onclick = (e) => { e.preventDefault(); cur = i; render(); };
+  dots.appendChild(d);
+});
+const cards = [...track.children];
+function render(){
+  cards.forEach((c, i) => {
+    let off = i - cur;
+    if (off > 2) off -= slides.length;
+    if (off < -2) off += slides.length;
+    c.dataset.pos = Math.max(-2, Math.min(2, off));
+  });
+  [...dots.children].forEach((d, i) => d.className = i === cur ? 'on' : '');
+}
+function move(dir){ cur = (cur + dir + slides.length) % slides.length; render(); }
+render();
+let auto = setInterval(() => move(1), 4500);
+const stage = track.parentElement;
+stage.addEventListener('mouseenter', () => clearInterval(auto));
+stage.addEventListener('mouseleave', () => auto = setInterval(() => move(1), 4500));
+
+/* 创建横幅 · 悬浮评论弹幕 */
+const REVIEWS = [
+  { e:"🌙", t:"我做的睡前故事被收藏了 2.3k 次" },
+  { e:"🫶", t:"树洞倾诉陪我熬过了那段低谷" },
+  { e:"♟️", t:"海龟汤聚会全场都玩疯了" },
+  { e:"🗂️", t:"把外婆的故事都存进了记忆档案馆" },
+  { e:"✏️", t:"灵感写作帮我写完了第一本绘本" },
+  { e:"⏰", t:"日程管家让我每天准时下班" },
+  { e:"🐾", t:"虚拟宠物每天都在等我回家" },
+  { e:"🌍", t:"孩子缠着我玩了一下午知识匠人" },
+  { e:"✨", t:"上线两周，我的 Agent 有 1.2k 订阅" },
+  { e:"📖", t:"AI 绘本工坊产出比我想的更治愈" },
+];
+const chip = r => `<span class="cchip"><i class="cav">${r.e}</i>${r.t}</span>`;
+const half = REVIEWS.map(chip).join('');
+const a1 = REVIEWS.slice().reverse().map(chip).join('');
+const tA = document.getElementById('ctrackA');
+const tB = document.getElementById('ctrackB');
+if (tA && tB){ tA.innerHTML = half + half; tB.innerHTML = a1 + a1; }
+</script>
+<script src="footer.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

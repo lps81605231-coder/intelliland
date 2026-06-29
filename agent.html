@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>智能体详情 · intelliland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="mobile-menu" id="mm">
+  <button class="mm-close" onclick="toggleMenu()">×</button>
+  <a href="store.html">智能体商店</a>
+  <a href="dev.html">创建智能体</a>
+  <a href="https://www.wuyong.me/app" style="color:var(--accent)">立即体验 →</a>
+</div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html">
+        <span class="logo"></span>
+        <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
+      </a>
+      <div class="navlinks">
+        <a href="store.html">智能体商店</a>
+        <a href="dev.html">创建智能体</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-dark" href="https://www.wuyong.me/app">立即体验</a>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<div id="footer"></div>
+
+<script src="data.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get('id');
+const a = getAgent(id);
+const app = document.getElementById('app');
+
+if (!a){
+  document.title = '未找到 · intelliland';
+  app.innerHTML = `<section class="pad"><div class="wrap" style="text-align:center">
+    <div style="font-size:60px;margin-bottom:14px">🌙</div>
+    <h1 style="font-size:34px;font-weight:900">没有找到这个智能体</h1>
+    <p style="color:var(--muted);margin:14px 0 28px">它可能已经下架，或者链接有误。</p>
+    <a class="btn btn-dark" href="store.html">返回智能体商店 →</a>
+  </div></section>`;
+} else {
+  document.title = `${a.title} · intelliland`;
+  const icon = k => ICONS[k] || '';
+  const feat = (f) => `<div class="feat"><div class="f-ico">${icon(f.ico)}</div><div><h3>${f.t}</h3><p>${f.d}</p></div></div>`;
+  const sceneHTML = `${a.stars ? '<div class="deco-stars"></div>' : ''}<div class="orb"></div>`;
+
+  app.innerHTML = `
+  <div class="wrap">
+    <a class="back" href="store.html">← 返回智能体商店</a>
+  </div>
+
+  <!-- HERO -->
+  <section style="padding-bottom:20px">
+    <div class="wrap detail-hero">
+      <div class="reveal in">
+        <div class="d-badge">${a.icon}</div>
+        <h1>${a.title}</h1>
+        <p class="d-sub">${a.hero.sub}</p>
+        <p class="d-desc">${a.hero.desc}</p>
+        <div class="d-cta">
+          <a class="btn btn-dark" href="#try">${a.hero.cta1} <span class="arr">→</span></a>
+          <button class="btn btn-ghost" onclick="shareAgent()">${a.hero.cta2}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="d-scene ${a.scene} reveal in" data-d="1">${sceneHTML}</div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <section style="padding:24px 0 8px">
+    <div class="wrap">
+      <div class="feat-strip reveal">${a.features.map(feat).join('')}</div>
+    </div>
+  </section>
+
+  <!-- SCENARIOS -->
+  <section class="pad" style="padding-bottom:48px">
+    <div class="wrap">
+      <h2 style="font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:-.02em;margin-bottom:30px" class="reveal">${a.scenarios.heading}</h2>
+      <div class="scen-grid">
+        ${a.scenarios.items.map((s, i) => `
+          <div class="scen reveal" data-d="${i+1}">
+            <div class="scen-img ${a.scene}">${a.stars ? '<div class="deco-stars"></div>' : ''}<div class="orb"></div></div>
+            <div class="scen-tx"><h3>${s.t}</h3><p>${s.d}</p></div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="band pad">
+    <div class="wrap">
+      <h2 style="font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:-.02em;margin-bottom:30px" class="reveal">${a.why.heading}</h2>
+      <div class="why-grid">
+        ${a.why.items.map((w, i) => `
+          <div class="why-card reveal" data-d="${i+1}">
+            <h3>${w.t}</h3><p>${w.d}</p>
+            ${w.extra ? `<div class="why-extra">${w.extra}</div>` : ''}
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- MLA STRIP -->
+  <section style="padding:48px 0 8px">
+    <div class="wrap">
+      <div class="mla-strip reveal">${a.mla.map(feat).join('')}</div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section style="padding:48px 0 96px" id="try">
+    <div class="wrap">
+      <div class="bigcta reveal">
+        <div class="glow"></div>
+        <h2>${a.closing.t}</h2>
+        <p>${a.closing.sub}</p>
+        <a class="btn btn-dark" href="https://www.wuyong.me/app">立即体验 <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>`;
+}
+
+function shareAgent(){
+  const url = location.href;
+  if (navigator.share){ navigator.share({ title: document.title, url }).catch(()=>{}); }
+  else if (navigator.clipboard){ navigator.clipboard.writeText(url); alert('链接已复制，分享给家人朋友吧 🌙'); }
+  else { prompt('复制链接分享：', url); }
+}
+</script>
+<script src="footer.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
