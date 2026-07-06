@@ -130,6 +130,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .dots span.on{width:24px;border-radius:4px;background:var(--accent)}
 
 /* MLA */
+#mla{padding:72px 0 80px}
 .mla{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .mla-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.35s}
 .mla-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(59,91,255,.22)}
@@ -336,7 +337,15 @@ footer{background:var(--ink);color:#9aa3b2;padding:64px 0 34px;position:relative
   .store-hero .wrap:not(.dev-hero){min-height:0;padding-top:12px}
   .stage{height:440px;order:-1;overflow:hidden}
   .d-scene{height:300px;order:-1}
-  .mla,.help,.scen-grid,.why-grid{grid-template-columns:1fr}
+  .help,.scen-grid,.why-grid{grid-template-columns:1fr}
+  #mla{padding:48px 0 56px}
+  .mla{grid-template-columns:repeat(2,1fr);gap:12px}
+  .mla-card{border-radius:16px}
+  .mla-body{padding:0 14px 14px;gap:6px}
+  .mla-num{width:24px;height:24px;font-size:10px}
+  .mla-card h3{font-size:15px}
+  .mla-line p{font-size:12px}
+  .mla-line svg{width:16px;height:16px}
   .grid-agents{grid-template-columns:repeat(2,1fr)}
   .cats{grid-template-columns:repeat(4,1fr)}
   .feat-strip,.mla-strip{grid-template-columns:1fr;gap:8px}
