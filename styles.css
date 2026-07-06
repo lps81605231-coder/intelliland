@@ -70,7 +70,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 
 /* section heads */
 .sec-head{text-align:center;max-width:680px;margin:0 auto 56px}
-.sec-head h2{font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.sec-head h2{font-size:clamp(30px,3.4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1.14}
 .sec-head .sub{margin-top:14px;color:var(--muted);font-size:15px}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;background:rgba(255,255,255,.6);border:1px solid var(--line);padding:6px 14px 6px 8px;border-radius:100px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-2);backdrop-filter:blur(8px)}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2.4s infinite}
@@ -131,11 +131,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 
 /* MLA */
 .mla{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.mla-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;gap:16px;transition:.35s}
-.mla-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(59,91,255,.25)}
-.mla-ico{width:54px;height:54px;border-radius:13px;background:var(--bg-2);display:grid;place-items:center;flex:0 0 auto;color:var(--accent)}
-.mla-card h3{font-size:19px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
-.mla-card p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.65}
+.mla-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.35s}
+.mla-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(59,91,255,.22)}
+.mla-art{overflow:hidden}
+.mla-art img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.mla-card:hover .mla-art img{transform:scale(1.045)}
+.mla-body{padding:2px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.mla-num{width:30px;height:30px;border-radius:50%;background:var(--c,var(--accent));color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.02em}
+.mla-card h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.mla-line{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mla-line p{font-size:13.5px;color:var(--muted);font-weight:300}
+.mla-line svg{width:19px;height:19px;flex:0 0 auto;color:var(--c,var(--accent))}
 @media(max-width:1080px){.mla{grid-template-columns:repeat(2,1fr)}}
 
 /* categories */
