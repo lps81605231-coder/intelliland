@@ -12,30 +12,12 @@
 <link rel="stylesheet" href="styles.css" />
 <style>
   /* ============ dev 页面专用 ============ */
-  /* hero 两栏 + 智能体宇宙展示面板 */
-  .store-hero .store-orb{display:none}
-  .dev-hero{display:grid;grid-template-columns:1.06fr .94fr;gap:52px;align-items:center}
-  .dev-hero-art{position:relative;display:grid;place-items:center}
-  .dev-hero-art::before{content:"";position:absolute;width:82%;aspect-ratio:1;border-radius:50%;
-    background:radial-gradient(circle,rgba(59,91,255,.40),rgba(25,199,230,.12) 55%,transparent 72%);
-    filter:blur(34px);z-index:0;animation:floaty-glow 7s ease-in-out infinite}
-  .dev-hero-art .frame{position:relative;z-index:1;width:100%;max-width:430px;border-radius:26px;overflow:hidden;
-    border:1px solid rgba(255,255,255,.08);background:#070a12;
-    box-shadow:0 36px 80px -34px rgba(30,30,80,.6),inset 0 0 0 1px rgba(255,255,255,.03);
-    animation:floaty 7.5s ease-in-out infinite}
-  .dev-hero-art .frame img{display:block;width:100%;height:auto}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  @keyframes floaty-glow{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.07);opacity:1}}
-  @media(max-width:900px){
-    .dev-hero{grid-template-columns:1fr;gap:30px}
-    .dev-hero-art{order:-1;max-width:340px;margin:0 auto}
-  }
+  .store-hero{padding-bottom:80px}
   .dev-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
   .dev-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.6);border:1px solid var(--line);padding:7px 14px;border-radius:100px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--ink-2);backdrop-filter:blur(8px)}
   .dev-tag .dt-i{color:var(--accent)}
 
   /* 获取开发工具 —— 视频主体 */
-  .tools-band{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .video-stage{position:relative;max-width:920px;margin:0 auto}
   .video-stage::before{content:"";position:absolute;left:6%;right:6%;top:14%;bottom:-6%;border-radius:50%;
     background:radial-gradient(ellipse at 50% 80%,rgba(59,91,255,.22),rgba(25,199,230,.08) 55%,transparent 75%);
@@ -58,7 +40,7 @@
   .video-frame:hover .play{transform:scale(1.1);background:var(--accent);border-color:var(--accent);box-shadow:0 0 40px rgba(59,91,255,.5)}
   .video-frame small{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.45)}
   .tool-duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin:40px auto 0}
-  .tool-mini{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;
+  .tool-mini{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;
     display:flex;flex-direction:column;gap:12px;transition:.3s}
   .tool-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(59,91,255,.22)}
   .tool-mini .tm-head{display:flex;align-items:center;gap:12px}
@@ -120,30 +102,26 @@
 
 <!-- ============ HERO ============ -->
 <section class="store-hero">
-  <div class="wrap dev-hero">
-    <div class="dev-hero-tx">
-      <span class="eyebrow reveal in"><span class="dot"></span>CREATORS · 创作者</span>
-      <h1 class="reveal in" data-d="1">人人都能创建<br>属于自己的 AI Agent</h1>
-      <p class="reveal in" data-d="2" style="max-width:42ch">用自然语言描述想法，Agent Builder 自动生成可运行的智能体。</p>
-      <div class="dev-tags reveal in" data-d="2">
-        <span class="dev-tag"><span class="dt-i">✦</span> 一句 Prompt</span>
-        <span class="dev-tag"><span class="dt-i">⚡</span> AI 自动生成</span>
-        <span class="dev-tag"><span class="dt-i">◐</span> 即时预览 Runtime</span>
-        <span class="dev-tag"><span class="dt-i">✓</span> 沉浸验证</span>
-      </div>
-      <div class="hero-cta reveal in" data-d="3" style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap">
-        <a class="btn btn-dark" href="#apply">开始创建 AGENT <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="#">查看创作者文档</a>
-      </div>
+  <div class="wrap">
+    <div class="store-orb"></div>
+    <span class="eyebrow reveal in"><span class="dot"></span>CREATORS · 创作者</span>
+    <h1 class="reveal in" data-d="1">人人都能创建<br>属于自己的 AI Agent</h1>
+    <p class="reveal in" data-d="2" style="max-width:42ch">用自然语言描述想法，Agent Builder 自动生成可运行的智能体。</p>
+    <div class="dev-tags reveal in" data-d="2">
+      <span class="dev-tag"><span class="dt-i">✦</span> 一句 Prompt</span>
+      <span class="dev-tag"><span class="dt-i">⚡</span> AI 自动生成</span>
+      <span class="dev-tag"><span class="dt-i">◐</span> 即时预览 Runtime</span>
+      <span class="dev-tag"><span class="dt-i">✓</span> 沉浸验证</span>
     </div>
-    <div class="dev-hero-art reveal in" data-d="2">
-      <div class="frame"><img src="assets/home/intelligent_agent_universe1.png" alt="智能体宇宙 · Agent Universe" loading="lazy"></div>
+    <div class="hero-cta reveal in" data-d="3" style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap">
+      <a class="btn btn-dark" href="#apply">开始创建 AGENT <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#">查看创作者文档</a>
     </div>
   </div>
 </section>
 
 <!-- ============ 获取开发工具 ============ -->
-<section class="pad tools-band" style="padding:88px 0 96px">
+<section class="pad" style="padding:88px 0 96px">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-bottom:48px">
       <h2 style="font-size:clamp(26px,3.4vw,38px)">获取开发工具</h2>
@@ -187,7 +165,7 @@
 </section>
 
 <!-- ============ 申请成为开发者 ============ -->
-<section class="band pad" id="apply">
+<section class="pad" id="apply" style="padding-top:64px">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-bottom:44px">
       <h2 style="font-size:clamp(26px,3.4vw,38px)">申请成为开发者</h2>

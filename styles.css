@@ -79,10 +79,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 /* ===== HERO (home) ===== */
 .hero{padding:56px 0 64px}
 .hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start}
-.hero h1{font-size:clamp(46px,6.2vw,84px);font-weight:800;line-height:.98;letter-spacing:-.04em}
+.hero-grid>div:first-child{padding-top:84px}
+.hero h1{font-size:clamp(30px,3.4vw,46px);font-weight:700;line-height:1.14;letter-spacing:-.02em}
 .hero h1 .en{font-family:var(--serif);font-weight:700}
 .hero h1 .em{color:transparent;-webkit-text-stroke:1.6px var(--ink)}
-.hero p.lead{margin-top:26px;font-size:18px;color:var(--ink-2);max-width:32ch;font-weight:300}
+.hero p.lead{margin-top:18px;font-size:18px;color:var(--ink-2);max-width:32ch;font-weight:300}
 .hero-cta{margin-top:38px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 
 /* carousel */
@@ -183,15 +184,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 
 /* ===== STORE ===== */
 .store-hero{padding:56px 0 20px;position:relative}
-/* store has no eyebrow — pad its h1 down so the big title lines up with the eyebrow pages (home/dev) */
-.store-hero .wrap:not(.dev-hero) h1{margin-top:54px}
-.store-hero h1{font-size:clamp(46px,6.2vw,84px);font-weight:800;letter-spacing:-.04em;line-height:.98}
-.store-hero p{margin-top:16px;font-size:18px;color:var(--ink-2);font-weight:300}
-.search{margin-top:30px;max-width:460px;display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 20px;box-shadow:var(--shadow-sm);transition:.25s}
+.store-hero .wrap:not(.dev-hero){min-height:430px;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;padding-top:84px}
+.store-hero h1{font-size:clamp(30px,3.4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1.14}
+.store-hero p{margin-top:18px;font-size:18px;color:var(--ink-2);font-weight:300}
+.search{margin-top:30px;width:100%;max-width:460px;display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 20px;box-shadow:var(--shadow-sm);transition:.25s}
 .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(59,91,255,.12)}
 .search svg{flex:0 0 auto;color:var(--muted)}
 .search input{border:none;background:none;outline:none;font-family:var(--sans);font-size:15px;width:100%;color:var(--ink)}
-.store-orb{position:absolute;right:28px;top:50%;transform:translateY(-50%);width:210px;height:210px;background:url("assets/home/intelligent_agent_universe1.png") center/contain no-repeat;z-index:0}
+.store-orb{position:absolute;right:4%;top:108px;width:300px;height:300px;background:url("assets/home/intelligent_agent_universe1.png") center/contain no-repeat;z-index:0}
 .row-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap}
 .row-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.03em}
 .row-head .row-sub{color:var(--muted);font-size:14px;margin-top:5px;font-weight:300}
@@ -239,7 +239,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .back:hover{color:var(--accent);gap:11px}
 .detail-hero{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:center;padding-bottom:30px}
 .d-badge{width:56px;height:56px;border-radius:14px;background:var(--ink);display:grid;place-items:center;font-size:25px;margin-bottom:24px}
-.detail-hero h1{font-size:clamp(40px,5.4vw,68px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.detail-hero h1{font-size:clamp(40px,5.4vw,68px);font-weight:800;letter-spacing:-.02em;line-height:1.12}
 .detail-hero .d-sub{font-size:20px;color:var(--ink-2);margin-top:16px;font-weight:400}
 .detail-hero .d-desc{font-size:16px;color:var(--muted);margin-top:18px;font-weight:300;max-width:42ch}
 .detail-hero .d-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
@@ -329,6 +329,8 @@ footer{background:var(--ink);color:#9aa3b2;padding:64px 0 34px;position:relative
   .navlinks,.nav-actions .btn-dark{display:none}
   .menu-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.6);cursor:pointer}
   .hero-grid,.detail-hero{grid-template-columns:1fr;gap:28px}
+  .hero-grid>div:first-child{padding-top:0}
+  .store-hero .wrap:not(.dev-hero){min-height:0;padding-top:12px}
   .stage{height:440px;order:-1;overflow:hidden}
   .d-scene{height:300px;order:-1}
   .mla,.help,.scen-grid,.why-grid{grid-template-columns:1fr}
