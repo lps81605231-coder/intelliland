@@ -136,9 +136,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0
 .mla-ico{width:54px;height:54px;border-radius:13px;background:var(--bg-2);display:grid;place-items:center;flex:0 0 auto;color:var(--accent)}
 .mla-card h3{font-size:19px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
 .mla-card p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.65}
-.mla-intro{max-width:720px;margin:0 auto 48px;text-align:center}
-.mla-intro .lead{font-family:var(--serif);font-size:clamp(17px,2vw,20px);line-height:1.7;color:var(--ink);font-weight:600;letter-spacing:-.01em}
-.mla-intro .body{margin-top:14px;font-size:14.5px;line-height:1.9;color:var(--muted);font-weight:300}
 @media(max-width:1080px){.mla{grid-template-columns:repeat(2,1fr)}}
 
 /* categories */
