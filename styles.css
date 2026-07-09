@@ -395,6 +395,7 @@ footer{background:var(--ink);color:#9aa3b2;padding:64px 0 34px;position:relative
   .brandmark .bm-avatars{display:none}
   .bm-type{display:inline-block;min-width:4.05em;margin:0 .12em;text-align:left;white-space:nowrap;color:var(--ink);font-size:.92em;font-weight:700;letter-spacing:0}
   .bm-type::after{content:"";display:inline-block;width:.055em;height:.8em;vertical-align:-.04em;margin-left:.07em;border-radius:1px;background:var(--accent);animation:caret 1.05s step-end infinite}
+  .sec-head h2{min-height:36px}
   .store-home-float{position:relative;left:auto;top:auto;display:flex;width:max-content;margin:0 0 18px}
   .cats,.grid-agents{grid-template-columns:repeat(2,1fr)}
   .row-head{margin-bottom:24px}
