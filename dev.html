@@ -16,55 +16,78 @@
   .dev-builder .sec-head{margin-bottom:30px}
   .dev-workflow{display:grid;grid-template-columns:minmax(360px,.95fr) minmax(0,1.05fr);background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
   .dw-visual{position:relative;order:2;min-height:620px;overflow:hidden;background:radial-gradient(70% 72% at 58% 50%,#fff 0%,#f8fbff 52%,#eef3ff 100%)}
-  .dw-visual::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,.78) 12%,rgba(255,255,255,0) 34%)}
-  .dw-visual img{position:absolute;inset:5% 2% 5% 4%;width:94%;height:90%;object-fit:contain;object-position:center;filter:drop-shadow(0 28px 46px rgba(83,103,180,.10));-webkit-mask-image:radial-gradient(ellipse at center,#000 58%,rgba(0,0,0,.88) 74%,transparent 100%);mask-image:radial-gradient(ellipse at center,#000 58%,rgba(0,0,0,.88) 74%,transparent 100%)}
+  .dw-visual::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,.95) 0,rgba(248,251,255,.68) 9%,rgba(248,251,255,0) 23%),linear-gradient(to left,rgba(238,243,255,.94) 0,rgba(238,243,255,.58) 8%,rgba(238,243,255,0) 21%),linear-gradient(to top,rgba(238,243,255,.96) 0,rgba(245,248,255,.70) 9%,rgba(245,248,255,0) 24%)}
+  .dw-visual::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,.78) 12%,rgba(255,255,255,0) 34%)}
+  .dw-visual img{position:absolute;z-index:1;inset:-3% -7% -3% 0;width:108%;height:106%;object-fit:contain;object-position:center;filter:drop-shadow(0 28px 46px rgba(83,103,180,.10));-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to left,transparent 0,#000 11%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to left,transparent 0,#000 11%,#000 100%);mask-composite:intersect}
   .dw-copy{order:1;padding:46px 48px;display:grid;align-content:center;gap:20px}
   .dw-head{display:grid;gap:14px}
   .dw-head h3{font-size:clamp(30px,3.8vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:12ch}
   .dw-head p{font-size:16px;color:var(--muted);font-weight:300;line-height:1.65;max-width:43ch}
-  .dw-actions{display:flex;gap:14px;flex-wrap:wrap}
   .dw-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
   .dw-step{padding:13px 14px;min-height:92px;border-right:1px solid var(--line)}
   .dw-step:last-child{border-right:0}
   .dw-step b{display:block;margin-bottom:6px;font-size:13.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
   .dw-step span{display:block;color:var(--muted);font-size:12.5px;line-height:1.55}
-  .dw-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
-  .dw-tool{padding:18px 0 0}
-  .dw-tool+.dw-tool{border-left:1px solid var(--line);padding-left:20px}
-  .dw-label{display:inline-flex;align-items:center;justify-content:center;width:72px;height:30px;border-radius:9px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em}
-  .dw-tool h4{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
-  .dw-tool p{margin-top:8px;color:var(--muted);font-size:13.5px;font-weight:300;line-height:1.55}
+  .dw-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:2px}
+  .dw-tool{position:relative;display:inline-flex;align-items:center;gap:13px;min-width:218px;max-width:258px;padding:10px 18px 10px 10px;border:1px solid rgba(10,12,16,.08);border-radius:999px;background:rgba(255,255,255,.78);box-shadow:0 18px 42px -30px rgba(20,28,48,.48);backdrop-filter:blur(12px);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,border-color .25s,background .25s}
+  .dw-tool:hover{transform:translateY(-2px);border-color:rgba(10,12,16,.14);box-shadow:0 24px 48px -32px rgba(20,28,48,.52);background:#fff}
+  .dw-tool:first-child{background:var(--ink);border-color:rgba(10,12,16,.1);color:#fff;box-shadow:0 22px 46px -28px rgba(10,12,16,.55)}
+  .dw-tool:first-child:hover{background:#151922}
+  .dw-tool::after{content:"";width:7px;height:7px;margin-left:auto;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);opacity:.36;flex:0 0 auto}
+  .dw-label{display:inline-flex;align-items:center;justify-content:center;min-width:72px;height:38px;border-radius:999px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em;padding:0 14px;flex:0 0 auto}
+  .dw-tool:first-child .dw-label{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14);color:#fff}
+  .dw-tool h4{font-size:15px;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+  .dw-tool p{margin-top:3px;color:var(--muted);font-size:12.5px;font-weight:300;line-height:1.25;white-space:nowrap}
+  .dw-tool:first-child p{color:rgba(255,255,255,.66)}
 
   /* 申请成为开发者 */
-  .dev-apply{padding-top:74px}
-  .apply-layout{display:grid;grid-template-columns:minmax(240px,.74fr) minmax(0,1.26fr);gap:34px;align-items:start;max-width:1080px;margin:0 auto}
-  .apply-intro{padding-top:8px}
-  .apply-intro h2{display:flex;align-items:center;gap:12px;font-size:clamp(28px,3.3vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12}
-  .apply-intro p{margin-top:15px;color:var(--muted);font-size:15.5px;font-weight:300;line-height:1.75;max-width:34ch}
-  .apply-checks{margin-top:26px;display:grid;gap:0;border-top:1px solid var(--line)}
-  .apply-check{padding:16px 0;border-bottom:1px solid var(--line)}
-  .apply-check b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em}
-  .apply-check span{display:block;margin-top:4px;font-size:13px;color:var(--muted);font-weight:300;line-height:1.6}
-  .apply{max-width:none;margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:38px 40px;box-shadow:var(--shadow-sm)}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
-  .field{display:flex;flex-direction:column;gap:9px}
+  .dev-apply{padding:102px 0 118px;overflow:hidden}
+  .dev-apply .wrap{max-width:1600px}
+  .apply-layout{display:grid;grid-template-columns:minmax(360px,.78fr) minmax(600px,1.22fr);gap:72px;align-items:center;max-width:1540px;margin:0 auto}
+  .apply-intro{position:relative;min-height:682px;padding:36px 0 170px}
+  .apply-intro::before{content:"";position:absolute;left:-94px;bottom:-104px;width:450px;height:180px;border-radius:50%;background:linear-gradient(135deg,rgba(91,112,255,.18),rgba(25,199,230,.07));filter:blur(26px);pointer-events:none}
+  .apply-intro h2{position:relative;z-index:1;display:flex;align-items:center;gap:18px;font-size:clamp(36px,4vw,58px);font-weight:900;letter-spacing:-.04em;line-height:1.08}
+  .apply-intro h2 .row-star{width:.94em;height:.94em;margin:0;filter:drop-shadow(0 12px 20px rgba(91,112,255,.22))}
+  .apply-intro p{position:relative;z-index:1;margin-top:26px;color:#687181;font-size:18px;font-weight:300;line-height:1.75;max-width:42ch}
+  .apply-checks{position:relative;z-index:1;margin-top:52px;display:grid;gap:34px;border:0;max-width:560px}
+  .apply-checks::before{content:"";position:absolute;left:23px;top:52px;bottom:52px;border-left:2px dashed rgba(91,112,255,.32)}
+  .apply-check{position:relative;display:grid;grid-template-columns:54px 78px minmax(0,1fr);gap:24px;align-items:center;padding:0;border:0}
+  .apply-num{position:relative;z-index:1;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#edf1ff;color:#5d6dff;font-family:var(--mono);font-size:16px;font-weight:700;line-height:1;box-shadow:0 9px 24px -14px rgba(59,91,255,.6)}
+  .apply-icon{display:grid;place-items:center;width:76px;height:76px;border-radius:18px;background:rgba(255,255,255,.9);border:1px solid rgba(59,91,255,.13);box-shadow:0 20px 42px -26px rgba(59,91,255,.48)}
+  .apply-icon svg{width:34px;height:34px;color:#6980ff;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .apply-copy b{display:block;font-size:22px;font-weight:800;letter-spacing:-.018em;line-height:1.22}
+  .apply-copy span{display:block;margin-top:9px;color:#6e7787;font-size:15px;font-weight:300;line-height:1.62;max-width:31ch}
+  .apply-visual{position:absolute;z-index:0;left:-60px;bottom:-82px;width:min(330px,56vw);filter:drop-shadow(0 26px 42px rgba(91,112,255,.16));pointer-events:none}
+  .apply{max-width:none;margin:0;background:rgba(255,255,255,.9);border:1px solid rgba(10,12,16,.08);border-radius:28px;padding:56px 58px;box-shadow:0 38px 94px -48px rgba(20,28,48,.42);backdrop-filter:blur(18px)}
+  .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 34px}
+  .field{display:flex;flex-direction:column;gap:12px}
   .field.full{grid-column:1 / -1}
-  .field label{font-size:13.5px;font-weight:700;display:flex;align-items:baseline;gap:6px;white-space:nowrap}
-  .field label .req{color:var(--accent)}
-  .field label .hint{color:var(--muted);font-weight:400;font-size:12px}
-  .field input,.field textarea{font-family:var(--sans);font-size:14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);outline:none;color:var(--ink);width:100%;resize:vertical}
-  .field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(59,91,255,.1)}
-  .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
-  .apply-foot{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-  .apply-foot .note{font-size:12px;color:var(--muted)}
+  .field label{font-size:15px;font-weight:800;display:flex;align-items:baseline;gap:7px;white-space:nowrap;color:#111827;letter-spacing:-.01em}
+  .field label .req{color:var(--accent);font-weight:800}
+  .field label .hint{color:#7f8796;font-weight:400;font-size:13px}
+  .field input,.field textarea{font-family:var(--sans);font-size:16px;padding:0 22px;border:1px solid rgba(87,98,127,.22);border-radius:12px;background:rgba(255,255,255,.68);outline:none;color:var(--ink);width:100%;resize:vertical;box-shadow:inset 0 1px 0 rgba(255,255,255,.72)}
+  .field input{height:62px}
+  .field textarea{min-height:132px;padding:18px 22px;line-height:1.7}
+  .field input:focus,.field textarea:focus{border-color:rgba(59,91,255,.58);box-shadow:0 0 0 4px rgba(59,91,255,.1),inset 0 1px 0 rgba(255,255,255,.78)}
+  .field input::placeholder,.field textarea::placeholder{color:#818b9e}
+  .apply-foot{margin-top:34px;padding-top:30px;border-top:1px solid rgba(10,12,16,.08);display:flex;align-items:center;justify-content:flex-start;gap:74px;flex-wrap:wrap}
+  .apply-foot .btn-dark{min-width:240px;justify-content:center;border-radius:10px;background:linear-gradient(135deg,#755cff 0%,#1677ff 100%);padding:16px 30px;font-size:17px;font-weight:700;box-shadow:0 18px 32px -16px rgba(59,91,255,.85)}
+  .apply-foot .btn-dark:hover{box-shadow:0 24px 38px -18px rgba(59,91,255,.9)}
+  .apply-foot .note{position:relative;display:inline-flex;align-items:center;gap:10px;font-size:13px;line-height:1.6;color:#7b8494}
+  .apply-foot .note::before{content:"";width:17px;height:17px;flex:0 0 auto;background:center/17px 17px no-repeat url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='18'%20height='18'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%239aa7ff'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Crect%20x='5'%20y='11'%20width='14'%20height='10'%20rx='2'/%3E%3Cpath%20d='M8%2011V7a4%204%200%200%201%208%200v4'/%3E%3C/svg%3E")}
 
   @media(max-width:980px){
     .dev-builder{padding:12px 0 64px}
     .dev-workflow,.apply-layout{grid-template-columns:1fr}
+    .dev-apply{padding:82px 0 96px}
+    .dev-apply .wrap{max-width:1180px}
+    .apply-layout{gap:42px}
+    .apply-intro{min-height:0;padding:0 0 270px}
+    .apply-visual{left:50%;bottom:-28px;width:300px;transform:translateX(-50%)}
     .dw-copy{padding:34px 28px}
     .dw-visual{min-height:340px}
     .dw-visual::after{background:linear-gradient(to bottom,rgba(255,255,255,0),var(--paper) 88%)}
-    .apply{padding:28px}
+    .apply{padding:38px}
   }
   @media(max-width:880px){
     .form-grid{grid-template-columns:1fr}
@@ -78,9 +101,25 @@
     .dw-head h3{max-width:12ch}
     .dw-visual{min-height:280px}
     .dw-step{min-height:112px}
-    .dw-tools{grid-template-columns:1fr}
-    .dw-tool+.dw-tool{border-left:0;border-top:1px solid var(--line);padding-left:0}
-    .apply{padding:24px 22px}
+    .dw-tools{align-items:stretch}
+    .dw-tool{width:100%;max-width:none;min-width:0}
+    .dw-tool p{white-space:normal}
+    .dev-apply{padding:70px 0 82px}
+    .apply-intro{padding-bottom:224px}
+    .apply-intro h2{font-size:34px;gap:12px}
+    .apply-intro p{font-size:16px;margin-top:18px}
+    .apply-checks{margin-top:36px;gap:28px}
+    .apply-check{grid-template-columns:48px minmax(0,1fr);gap:16px}
+    .apply-checks::before{left:21px;top:48px;bottom:48px}
+    .apply-icon{display:none}
+    .apply-copy b{font-size:18px}
+    .apply-copy span{font-size:14px}
+    .apply-visual{width:260px;bottom:-20px}
+    .apply{padding:28px 22px;border-radius:22px}
+    .field input{height:58px}
+    .field input,.field textarea{font-size:15px;padding-left:18px;padding-right:18px}
+    .field textarea{padding-top:16px}
+    .apply-foot{gap:16px}
     .apply-foot .btn-dark{width:100%;justify-content:center}
   }
 </style>
@@ -91,7 +130,7 @@
   <button class="mm-close" onclick="toggleMenu()">×</button>
   <a href="index.html" onclick="toggleMenu()">首页</a>
   <a href="dev.html" onclick="toggleMenu()">创建智能体</a>
-  <a href="https://www.wuyong.me/dev-app" target="_blank" rel="noopener" style="color:var(--accent)">进入网页端 ↗</a>
+  <a href="https://www.wuyong.me/dev-app" target="_blank" rel="noopener" style="color:var(--accent)">立即体验</a>
 </div>
 
 <header id="hdr">
@@ -106,7 +145,7 @@
         <a href="dev.html" class="active">创建智能体</a>
       </div>
       <div class="nav-actions">
-        <a class="btn btn-dark" href="https://www.wuyong.me/dev-app" target="_blank" rel="noopener">进入网页端 <span class="arr">↗</span></a>
+        <a class="btn btn-dark" href="https://www.wuyong.me/dev-app" target="_blank" rel="noopener">立即体验</a>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
       </div>
     </nav>
@@ -149,10 +188,6 @@
           <h3>把想法变成可运行的 Agent</h3>
           <p>写下目标和使用场景，Builder 生成配置，Dev Client 负责预览验证。</p>
         </div>
-        <div class="dw-actions">
-          <a class="btn btn-dark" href="#apply">申请创建权限 <span class="arr">→</span></a>
-          <a class="btn btn-ghost" href="#tools">查看工具链</a>
-        </div>
         <div class="dw-flow" aria-label="创建流程">
           <span class="dw-step"><b>描述想法</b><span>一句话开始，也能逐步补充细节。</span></span>
           <span class="dw-step"><b>生成配置</b><span>沉淀提示词、工具、记忆和流程。</span></span>
@@ -189,18 +224,37 @@
         <p>目前开发者账号采用申请制。审核通过后，你可以用账号登录 Dev Client 并开始创建智能体。</p>
         <div class="apply-checks">
           <div class="apply-check">
-            <b>提交基本信息</b>
-            <span>告诉我们如何联系你，以及你想创建的 Agent 类型。</span>
+            <span class="apply-num">01</span>
+            <span class="apply-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="8" r="4"></circle></svg>
+            </span>
+            <div class="apply-copy">
+              <b>提交基本信息</b>
+              <span>告诉我们如何联系你，以及你想创建的 Agent 类型。</span>
+            </div>
           </div>
           <div class="apply-check">
-            <b>完成资格审核</b>
-            <span>通过后会发送开发者账号和工具获取方式。</span>
+            <span class="apply-num">02</span>
+            <span class="apply-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3z"></path><path d="m9 12 2 2 4-5"></path></svg>
+            </span>
+            <div class="apply-copy">
+              <b>完成资格审核</b>
+              <span>通过后会发送开发者账号和工具获取方式。</span>
+            </div>
           </div>
           <div class="apply-check">
-            <b>进入创建环境</b>
-            <span>使用 Builder 和 Dev Client 验证你的第一个 Agent。</span>
+            <span class="apply-num">03</span>
+            <span class="apply-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m21 16-9 5-9-5"></path><path d="m21 12-9 5-9-5"></path><path d="m12 3 9 5-9 5-9-5z"></path></svg>
+            </span>
+            <div class="apply-copy">
+              <b>进入创建环境</b>
+              <span>使用 Builder 和 Dev Client 验证你的第一个 Agent。</span>
+            </div>
           </div>
         </div>
+        <img class="apply-visual" src="assets/dev/developer-apply-visual.png" alt="" loading="lazy" aria-hidden="true">
       </div>
       <form class="apply reveal" onsubmit="submitApply(event)">
         <div class="form-grid">
