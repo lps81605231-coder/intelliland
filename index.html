@@ -30,7 +30,6 @@
       </a>
       <div class="navlinks">
         <a href="index.html" class="active">首页</a>
-        <a href="store.html">智能体商店</a>
         <a href="dev.html">创建智能体</a>
       </div>
       <div class="nav-actions">
@@ -54,6 +53,7 @@
         <i><img src="assets/avatars/artisan.jpg" alt="" /></i>
         <i><img src="assets/avatars/picturebook.jpg" alt="" /></i>
       </span>
+      <span class="bm-type" aria-hidden="true"></span>
       <span>land</span>
     </h1>
   </div>
@@ -66,7 +66,9 @@
       <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">让 Agent 走进生活</h2>
       <p class="sub">从创作、陪伴到探索，智能体让每个日常更美好</p>
     </div>
-    <div class="scene-tabs reveal" data-d="1" id="sceneTabs" role="tablist" aria-label="场景切换"></div>
+    <div class="scene-tabs-wrap reveal" data-d="1">
+      <div class="scene-tabs" id="sceneTabs" role="tablist" aria-label="场景切换"></div>
+    </div>
     <div class="scene-card reveal" data-d="2" id="sceneCard">
       <div class="sc-text">
         <span class="sc-badge" id="scBadge"></span>
@@ -172,6 +174,23 @@ SCENES.forEach((a, i) => {
   const pre = new Image(); pre.src = SCENE_IMGS[a.id] || a.img;
 });
 
+/* 末尾追加「更多智能体」→ 跳转智能体商店 */
+const moreTab = document.createElement('a');
+moreTab.href = 'store.html';
+moreTab.className = 'scene-tab scene-tab-more';
+moreTab.innerHTML = `<span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><span class="st-tx">更多智能体</span>`;
+tabsEl.appendChild(moreTab);
+
+/* 移动端滑动引导：滚到末尾（或无溢出）时隐藏右侧渐隐箭头 */
+const stWrap = tabsEl.parentElement;
+const updateSwipeHint = () => {
+  const atEnd = tabsEl.scrollLeft + tabsEl.clientWidth >= tabsEl.scrollWidth - 8;
+  stWrap.classList.toggle('scrolled-end', atEnd);
+};
+tabsEl.addEventListener('scroll', updateSwipeHint, { passive: true });
+window.addEventListener('resize', updateSwipeHint);
+updateSwipeHint();
+
 function apply(a){
   scBadge.textContent = a.title;
   scTitle.textContent = a.hero.sub.replace(/[。.]$/, '');
@@ -216,6 +235,32 @@ const a1 = REVIEWS.slice().reverse().map(chip).join('');
 const tA = document.getElementById('ctrackA');
 const tB = document.getElementById('ctrackB');
 if (tA && tB){ tA.innerHTML = half + half; tB.innerHTML = a1 + a1; }
+
+/* 手机端品牌字标打字机：循环打出五个图标对应的场景名 */
+(function(){
+  const el = document.querySelector('.bm-type');
+  if (!el) return;
+  const WORDS = ['睡前陪伴','聚会推理','记忆珍藏','知识探索','绘本创作'];
+  const mq = window.matchMedia('(max-width:560px)');
+  let wi = 0, ci = 0, deleting = false, timer = null, running = false;
+  function tick(){
+    const w = WORDS[wi];
+    if (!deleting){
+      ci++; el.textContent = w.slice(0, ci);
+      if (ci >= w.length){ deleting = true; timer = setTimeout(tick, 1200); return; }
+      timer = setTimeout(tick, 140);
+    } else {
+      ci--; el.textContent = w.slice(0, ci);
+      if (ci <= 0){ deleting = false; wi = (wi + 1) % WORDS.length; timer = setTimeout(tick, 320); return; }
+      timer = setTimeout(tick, 70);
+    }
+  }
+  function start(){ if (running) return; running = true; wi = 0; ci = 0; deleting = false; tick(); }
+  function stop(){ running = false; clearTimeout(timer); timer = null; el.textContent = ''; }
+  function apply(){ mq.matches ? start() : stop(); }
+  mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+  apply();
+})();
 </script>
 <script src="footer.js"></script>
 <script src="app.js"></script>

@@ -7,51 +7,52 @@
 <meta name="description" content="人人都能创建属于自己的 AI Agent。用自然语言描述想法，Agent Builder 自动生成可运行的智能体。" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="styles.css" />
 <style>
   /* ============ dev 页面专用 ============ */
-  .store-hero{padding-bottom:80px}
-  .dev-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-  .dev-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.6);border:1px solid var(--line);padding:7px 14px;border-radius:100px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--ink-2);backdrop-filter:blur(8px)}
-  .dev-tag .dt-i{color:var(--accent)}
+  .dev-builder{padding:28px 0 16px}
+  .dev-builder .sec-head{margin-bottom:30px}
+  .dev-builder-card{display:grid;grid-template-columns:minmax(0,.92fr) minmax(360px,1.08fr);background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+  .db-copy{padding:52px 48px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:18px}
+  .db-copy h3{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.12;max-width:11ch}
+  .db-copy p{font-size:16px;color:var(--muted);font-weight:300;line-height:1.75;max-width:35ch}
+  .db-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%;margin-top:4px}
+  .db-point{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 13px;color:var(--muted);font-size:12.5px;line-height:1.5}
+  .db-point b{display:block;margin-bottom:3px;color:var(--ink);font-size:13.5px;letter-spacing:-.01em}
+  .db-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+  .db-visual{position:relative;min-height:460px;overflow:hidden;background:linear-gradient(135deg,#f9fbff 0%,#eef3ff 100%)}
+  .db-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.035)}
+  .db-visual::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,0) 18%)}
 
-  /* 获取开发工具 —— 视频主体 */
-  .video-stage{position:relative;max-width:920px;margin:0 auto}
-  .video-stage::before{content:"";position:absolute;left:6%;right:6%;top:14%;bottom:-6%;border-radius:50%;
-    background:radial-gradient(ellipse at 50% 80%,rgba(59,91,255,.22),rgba(25,199,230,.08) 55%,transparent 75%);
-    filter:blur(38px);z-index:0}
-  .video-frame{position:relative;z-index:1;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#070a12;
-    border:1px solid rgba(255,255,255,.09);cursor:pointer;
-    box-shadow:0 44px 96px -40px rgba(18,24,60,.6),inset 0 0 0 1px rgba(255,255,255,.04);
-    display:grid;place-items:center;text-align:center}
-  .video-frame::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);background-size:24px 24px;
-    -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 30%,transparent 78%);
-    mask-image:radial-gradient(ellipse at 50% 50%,#000 30%,transparent 78%)}
-  .video-frame .chrome{position:absolute;top:0;left:0;right:0;height:40px;display:flex;align-items:center;gap:7px;
-    padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
-  .video-frame .chrome i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
-  .video-frame .vf-inner{position:relative}
-  .video-frame .play{width:66px;height:66px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;
-    font-size:20px;color:#fff;padding-left:4px;
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px);transition:.35s}
-  .video-frame:hover .play{transform:scale(1.1);background:var(--accent);border-color:var(--accent);box-shadow:0 0 40px rgba(59,91,255,.5)}
-  .video-frame small{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:rgba(255,255,255,.45)}
-  .tool-duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin:40px auto 0}
-  .tool-mini{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;
-    display:flex;flex-direction:column;gap:12px;transition:.3s}
-  .tool-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(59,91,255,.22)}
+  /* 获取开发工具 */
+  .dev-tools{padding:76px 0 86px}
+  .dev-tools-panel{display:grid;grid-template-columns:minmax(260px,.82fr) minmax(0,1.28fr);background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+  .dev-tools-art{position:relative;min-height:394px;overflow:hidden;background:linear-gradient(135deg,#f7f9ff,#eef2f7)}
+  .dev-tools-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:24px;filter:drop-shadow(0 28px 38px rgba(59,91,255,.2))}
+  .dev-tools-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to left,var(--paper) 0,rgba(255,255,255,0) 26%)}
+  .dev-tools-copy{padding:38px;display:grid;align-content:center;gap:16px}
+  .tool-mini{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:23px 24px;display:flex;flex-direction:column;gap:12px;transition:.3s cubic-bezier(.2,.7,.2,1)}
+  .tool-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(59,91,255,.22);background:#fff}
   .tool-mini .tm-head{display:flex;align-items:center;gap:12px}
-  .tool-mini .ti{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:0 0 auto}
+  .tool-mini .tm-label{display:inline-flex;align-items:center;justify-content:center;width:62px;height:28px;border-radius:9px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em;flex:0 0 auto}
   .tool-mini h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
   .tool-mini>p{font-size:13.5px;color:var(--muted);font-weight:300;line-height:1.65;flex:1}
   .tool-mini .tm-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
   .tool-mini .tm-note{font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 
   /* 申请成为开发者 */
-  .apply{max-width:920px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:40px 44px}
+  .dev-apply{padding-top:74px}
+  .apply-layout{display:grid;grid-template-columns:minmax(240px,.74fr) minmax(0,1.26fr);gap:34px;align-items:start;max-width:1080px;margin:0 auto}
+  .apply-intro{padding-top:8px}
+  .apply-intro h2{display:flex;align-items:center;gap:12px;font-size:clamp(28px,3.3vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12}
+  .apply-intro p{margin-top:15px;color:var(--muted);font-size:15.5px;font-weight:300;line-height:1.75;max-width:34ch}
+  .apply-checks{margin-top:26px;display:grid;gap:0;border-top:1px solid var(--line)}
+  .apply-check{padding:16px 0;border-bottom:1px solid var(--line)}
+  .apply-check b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .apply-check span{display:block;margin-top:4px;font-size:13px;color:var(--muted);font-weight:300;line-height:1.6}
+  .apply{max-width:none;margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:38px 40px;box-shadow:var(--shadow-sm)}
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
   .field{display:flex;flex-direction:column;gap:9px}
   .field.full{grid-column:1 / -1}
@@ -64,9 +65,26 @@
   .apply-foot{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
   .apply-foot .note{font-size:12px;color:var(--muted)}
 
+  @media(max-width:980px){
+    .dev-builder-card,.dev-tools-panel,.apply-layout{grid-template-columns:1fr}
+    .db-copy{padding:34px 28px}
+    .db-visual{min-height:340px}
+    .db-visual::before{background:linear-gradient(to bottom,var(--paper) 0,rgba(255,255,255,0) 16%)}
+    .dev-tools-art{min-height:300px}
+    .dev-tools-art::after{background:linear-gradient(to bottom,rgba(255,255,255,0),var(--paper) 86%)}
+    .dev-tools-copy,.apply{padding:28px}
+  }
   @media(max-width:880px){
     .form-grid{grid-template-columns:1fr}
-    .tool-duo{grid-template-columns:1fr}
+    .db-points{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .db-copy h3{max-width:12ch}
+    .dev-builder-card,.dev-tools-panel{border-radius:20px}
+    .db-visual{min-height:280px}
+    .dev-tools{padding:62px 0}
+    .apply{padding:24px 22px}
+    .apply-foot .btn-dark{width:100%;justify-content:center}
   }
 </style>
 </head>
@@ -75,7 +93,6 @@
 <div class="mobile-menu" id="mm">
   <button class="mm-close" onclick="toggleMenu()">×</button>
   <a href="index.html" onclick="toggleMenu()">首页</a>
-  <a href="store.html" onclick="toggleMenu()">智能体商店</a>
   <a href="dev.html" onclick="toggleMenu()">创建智能体</a>
   <a href="https://www.wuyong.me/dev-app" target="_blank" rel="noopener" style="color:var(--accent)">进入网页端 ↗</a>
 </div>
@@ -85,11 +102,10 @@
     <nav>
       <a class="brand" href="index.html">
         <span class="logo"></span>
-        <span class="brand-txt"><b>intelliland</b><span>智能体平台</span></span>
+        <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
       </a>
       <div class="navlinks">
         <a href="index.html">首页</a>
-        <a href="store.html">智能体商店</a>
         <a href="dev.html" class="active">创建智能体</a>
       </div>
       <div class="nav-actions">
@@ -100,64 +116,90 @@
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="store-hero">
+<!-- ============ 品牌字标 Banner ============ -->
+<section class="hero-brand">
   <div class="wrap">
-    <div class="store-orb"></div>
-    <span class="eyebrow reveal in"><span class="dot"></span>CREATORS · 创作者</span>
-    <h1 class="reveal in" data-d="1">人人都能创建<br>属于自己的 AI Agent</h1>
-    <p class="reveal in" data-d="2" style="max-width:42ch">用自然语言描述想法，Agent Builder 自动生成可运行的智能体。</p>
-    <div class="dev-tags reveal in" data-d="2">
-      <span class="dev-tag"><span class="dt-i">✦</span> 一句 Prompt</span>
-      <span class="dev-tag"><span class="dt-i">⚡</span> AI 自动生成</span>
-      <span class="dev-tag"><span class="dt-i">◐</span> 即时预览 Runtime</span>
-      <span class="dev-tag"><span class="dt-i">✓</span> 沉浸验证</span>
+    <h1 class="brandmark reveal in" aria-label="Intelliland">
+      <img class="bm-mark" src="assets/intelliland-mark.svg" alt="" />
+      <span>Intelli</span>
+      <span class="bm-avatars" aria-hidden="true">
+        <i><img src="assets/avatars/bedtime.jpg" alt="" /></i>
+        <i><img src="assets/avatars/turtlesoup.jpg" alt="" /></i>
+        <i><img src="assets/avatars/memory.jpg" alt="" /></i>
+        <i><img src="assets/avatars/artisan.jpg" alt="" /></i>
+        <i><img src="assets/avatars/picturebook.jpg" alt="" /></i>
+      </span>
+      <span class="bm-type" aria-hidden="true"></span>
+      <span>land</span>
+    </h1>
+  </div>
+</section>
+
+<!-- ============ 创建智能体 ============ -->
+<section class="dev-builder" id="builder">
+  <div class="wrap">
+    <div class="sec-head reveal in" style="margin-bottom:30px">
+      <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">创建智能体</h2>
+      <p class="sub">用自然语言描述想法，生成可预览、可验证、可发布的 Agent。</p>
     </div>
-    <div class="hero-cta reveal in" data-d="3" style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap">
-      <a class="btn btn-dark" href="#apply">开始创建 AGENT <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="#">查看创作者文档</a>
+    <div class="dev-builder-card reveal in" data-d="1">
+      <div class="db-copy">
+        <span class="sc-badge">Agent Builder</span>
+        <h3>把想法变成可运行的 Agent</h3>
+        <p>写下目标、角色和使用场景，Builder 会整理能力结构、运行配置和预览入口。</p>
+        <div class="db-actions">
+          <a class="btn btn-dark" href="#apply">申请创建权限 <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#tools">查看开发工具</a>
+        </div>
+        <div class="db-points">
+          <span class="db-point"><b>描述想法</b>一句话开始，也能逐步补充细节。</span>
+          <span class="db-point"><b>配置能力</b>沉淀提示词、工具、记忆和流程。</span>
+          <span class="db-point"><b>预览验证</b>在运行环境中检查真实体验。</span>
+        </div>
+      </div>
+      <div class="db-visual" aria-hidden="true">
+        <img src="assets/cats/creation.png" alt="" loading="eager">
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 获取开发工具 ============ -->
-<section class="pad" style="padding:88px 0 96px">
+<section class="dev-tools" id="tools">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:48px">
-      <h2 style="font-size:clamp(26px,3.4vw,38px)">获取开发工具</h2>
-      <p class="sub" style="margin-top:12px">Agent Builder 是创建智能体的核心 skill —— 装上它，用自然语言把想法生成可运行的 Agent。</p>
-    </div>
-
-    <div class="video-stage reveal">
-      <div class="video-frame">
-        <div class="chrome"><i></i><i></i><i></i></div>
-        <div class="vf-inner">
-          <div class="play">▶</div>
-          <small>轻量级开发环境演示 · 即将上线</small>
-        </div>
+    <div class="row-head reveal" style="margin-bottom:30px">
+      <div class="row-copy">
+        <h2><img class="row-star" src="assets/sparkle.png" alt="" aria-hidden="true">获取开发工具</h2>
+        <p class="row-sub">Builder 负责生成，Dev Client 负责本地预览，两者组成完整创建工作流。</p>
       </div>
     </div>
 
-    <div class="tool-duo">
-      <div class="tool-mini reveal" data-d="1">
-        <div class="tm-head">
-          <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.2 5.6L20 9.2l-4.4 3.6L17 19l-5-3-5 3 1.4-6.2L4 9.2l5.8-.6L12 3z"/></svg></div>
-          <h3>Agent Builder</h3>
-        </div>
-        <p>构建智能体的 skill。描述你想要的智能体，它即可生成可运行的 Agent 代码。</p>
-        <div class="tm-foot">
-          <a class="btn btn-dark" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:-2px"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>在 GitHub 上获取</a>
-        </div>
+    <div class="dev-tools-panel reveal" data-d="1">
+      <div class="dev-tools-art" aria-hidden="true">
+        <img src="assets/home/intelligent_agent_universe1.png" alt="" loading="lazy">
       </div>
-      <div class="tool-mini reveal" data-d="2">
-        <div class="tm-head">
-          <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-          <h3>Dev Client</h3>
+      <div class="dev-tools-copy">
+        <div class="tool-mini">
+          <div class="tm-head">
+            <span class="tm-label">Skill</span>
+            <h3>Agent Builder</h3>
+          </div>
+          <p>创建智能体的核心 skill。输入目标和约束，生成角色设定、运行配置和可维护的 Agent 代码。</p>
+          <div class="tm-foot">
+            <a class="btn btn-dark" href="#">获取 Builder <span class="arr">→</span></a>
+            <span class="tm-note">适合从零创建或迭代已有 Agent</span>
+          </div>
         </div>
-        <p>本地智能体预览，所见即所得渲染器、生效即时热重载。</p>
-        <div class="tm-foot">
-          <a class="btn btn-ghost" href="#">↓ 下载</a>
-          <span class="tm-note">macOS (Apple Silicon) · Windows 等陆续支持</span>
+        <div class="tool-mini">
+          <div class="tm-head">
+            <span class="tm-label">Client</span>
+            <h3>Dev Client</h3>
+          </div>
+          <p>本地智能体预览环境。渲染、调试和验证流程在同一个工作区完成，修改后即时生效。</p>
+          <div class="tm-foot">
+            <a class="btn btn-ghost" href="#">下载客户端</a>
+            <span class="tm-note">macOS Apple Silicon 优先支持</span>
+          </div>
         </div>
       </div>
     </div>
@@ -165,44 +207,60 @@
 </section>
 
 <!-- ============ 申请成为开发者 ============ -->
-<section class="pad" id="apply" style="padding-top:64px">
+<section class="dev-apply pad" id="apply">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:44px">
-      <h2 style="font-size:clamp(26px,3.4vw,38px)">申请成为开发者</h2>
-      <p class="sub" style="margin-top:12px">目前开发者账号采用申请制 —— 留下你的信息，我们审核通过后会把账号发给你，用它登录 Dev Client 即可开始创建智能体。</p>
+    <div class="apply-layout">
+      <div class="apply-intro reveal">
+        <h2><img class="row-star" src="assets/sparkle.png" alt="" aria-hidden="true">申请成为开发者</h2>
+        <p>目前开发者账号采用申请制。审核通过后，你可以用账号登录 Dev Client 并开始创建智能体。</p>
+        <div class="apply-checks">
+          <div class="apply-check">
+            <b>提交基本信息</b>
+            <span>告诉我们如何联系你，以及你想创建的 Agent 类型。</span>
+          </div>
+          <div class="apply-check">
+            <b>完成资格审核</b>
+            <span>通过后会发送开发者账号和工具获取方式。</span>
+          </div>
+          <div class="apply-check">
+            <b>进入创建环境</b>
+            <span>使用 Builder 和 Dev Client 验证你的第一个 Agent。</span>
+          </div>
+        </div>
+      </div>
+      <form class="apply reveal" onsubmit="submitApply(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label for="applyName">姓名 <span class="req">*</span></label>
+            <input id="applyName" type="text" name="name" placeholder="怎么称呼你" required />
+          </div>
+          <div class="field">
+            <label for="applyPhone">手机号 <span class="req">*</span></label>
+            <input id="applyPhone" type="tel" name="phone" placeholder="11 位手机号" required />
+          </div>
+          <div class="field">
+            <label for="applyEmail">邮箱 <span class="req">*</span></label>
+            <input id="applyEmail" type="email" name="email" placeholder="name@example.com" required />
+          </div>
+          <div class="field">
+            <label for="applyCompany">公司 / 团队 <span class="hint">（选填）</span></label>
+            <input id="applyCompany" type="text" name="company" placeholder="可不填" />
+          </div>
+          <div class="field full">
+            <label for="applyIdea">想做什么样的智能体 <span class="hint">（选填）</span></label>
+            <textarea id="applyIdea" name="idea" rows="3" placeholder="可不填，一句话说说你的想法或用途"></textarea>
+          </div>
+          <div class="field full">
+            <label for="applyContact">其他联系方式 <span class="hint">（选填）</span></label>
+            <input id="applyContact" type="text" name="contact" placeholder="可不填，微信 / QQ 等" />
+          </div>
+        </div>
+        <div class="apply-foot">
+          <button type="submit" class="btn btn-dark">提交申请</button>
+          <span class="note">你的信息仅用于开发者资格审核与联系，不会用于营销。</span>
+        </div>
+      </form>
     </div>
-    <form class="apply reveal" onsubmit="submitApply(event)">
-      <div class="form-grid">
-        <div class="field">
-          <label>姓名 <span class="req">*</span></label>
-          <input type="text" name="name" placeholder="怎么称呼你" required />
-        </div>
-        <div class="field">
-          <label>手机号 <span class="req">*</span></label>
-          <input type="tel" name="phone" placeholder="11 位手机号" required />
-        </div>
-        <div class="field">
-          <label>邮箱 <span class="req">*</span></label>
-          <input type="email" name="email" placeholder="name@example.com" required />
-        </div>
-        <div class="field">
-          <label>公司 / 团队 <span class="hint">（选填）</span></label>
-          <input type="text" name="company" placeholder="可不填" />
-        </div>
-        <div class="field full">
-          <label>想做什么样的智能体 <span class="hint">（选填）</span></label>
-          <textarea name="idea" rows="3" placeholder="可不填，一句话说说你的想法或用途"></textarea>
-        </div>
-        <div class="field full">
-          <label>其他联系方式 <span class="hint">（选填）</span></label>
-          <input type="text" name="contact" placeholder="可不填，微信 / QQ 等" />
-        </div>
-      </div>
-      <div class="apply-foot">
-        <button type="submit" class="btn btn-dark">✈ 提交申请</button>
-        <span class="note">* 你的信息仅用于开发者资格审核与联系，不会用于营销。</span>
-      </div>
-    </form>
   </div>
 </section>
 
@@ -212,9 +270,35 @@
 <script>
 function submitApply(e){
   e.preventDefault();
-  alert('申请已提交，我们会尽快审核并与你联系 🌙\n（演示页面，未接入后端）');
+  alert('申请已提交，我们会尽快审核并与你联系。\n（演示页面，未接入后端）');
   e.target.reset();
 }
+
+/* 手机端品牌字标打字机：与首页保持一致 */
+(function(){
+  const el = document.querySelector('.bm-type');
+  if (!el) return;
+  const WORDS = ['睡前陪伴','聚会推理','记忆珍藏','知识探索','绘本创作'];
+  const mq = window.matchMedia('(max-width:560px)');
+  let wi = 0, ci = 0, deleting = false, timer = null, running = false;
+  function tick(){
+    const w = WORDS[wi];
+    if (!deleting){
+      ci++; el.textContent = w.slice(0, ci);
+      if (ci >= w.length){ deleting = true; timer = setTimeout(tick, 1200); return; }
+      timer = setTimeout(tick, 140);
+    } else {
+      ci--; el.textContent = w.slice(0, ci);
+      if (ci <= 0){ deleting = false; wi = (wi + 1) % WORDS.length; timer = setTimeout(tick, 320); return; }
+      timer = setTimeout(tick, 70);
+    }
+  }
+  function start(){ if (running) return; running = true; wi = 0; ci = 0; deleting = false; tick(); }
+  function stop(){ running = false; clearTimeout(timer); timer = null; el.textContent = ''; }
+  function apply(){ mq.matches ? start() : stop(); }
+  mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+  apply();
+})();
 </script>
 <script src="footer.js"></script>
 <script src="app.js"></script>
