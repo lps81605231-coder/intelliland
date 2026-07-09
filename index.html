@@ -7,7 +7,7 @@
 <meta name="description" content="intelliland 精品智能体 —— 每一个智能体都是精心打造的产品，为真实场景而生，陪你走得更温暖。" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="styles.css" />
 </head>
@@ -41,25 +41,42 @@
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow reveal in"><span class="dot"></span>Most Lovable Agents · 为真实场景而生</span>
-      <h1 class="reveal in" data-d="1">从一个好<br><span class="en">Agent</span> 开始</h1>
-      <p class="lead reveal in" data-d="2">每一个智能体，都是精心打造的产品，为真实场景而生，帮你解决真正的问题。</p>
-      <div class="hero-cta reveal in" data-d="3">
-        <a class="btn btn-dark" href="store.html">探索精品智能体 <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="#mla">了解 MLA 标准</a>
-      </div>
-    </div>
+<!-- ============ HERO · 品牌字标 ============ -->
+<section class="hero-brand">
+  <div class="wrap">
+    <h1 class="brandmark reveal in" aria-label="Intelliland">
+      <img class="bm-mark" src="assets/intelliland-mark.svg" alt="" />
+      <span>Intelli</span>
+      <span class="bm-avatars" aria-hidden="true">
+        <i><img src="assets/avatars/bedtime.jpg" alt="" /></i>
+        <i><img src="assets/avatars/turtlesoup.jpg" alt="" /></i>
+        <i><img src="assets/avatars/memory.jpg" alt="" /></i>
+        <i><img src="assets/avatars/artisan.jpg" alt="" /></i>
+        <i><img src="assets/avatars/picturebook.jpg" alt="" /></i>
+      </span>
+      <span>land</span>
+    </h1>
+  </div>
+</section>
 
-    <div class="stage">
-      <div class="moon-amb"></div>
-      <div class="track" id="track"></div>
-      <button class="nav-btn nav-prev" onclick="move(-1)">‹</button>
-      <button class="nav-btn nav-next" onclick="move(1)">›</button>
-      <div class="dots" id="dots"></div>
+<!-- ============ 场景切换 ============ -->
+<section class="scenes" id="scenes">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:30px">
+      <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">让 Agent 走进生活</h2>
+      <p class="sub">从创作、陪伴到探索，智能体让每个日常更美好</p>
+    </div>
+    <div class="scene-tabs reveal" data-d="1" id="sceneTabs" role="tablist" aria-label="场景切换"></div>
+    <div class="scene-card reveal" data-d="2" id="sceneCard">
+      <div class="sc-text">
+        <span class="sc-badge" id="scBadge"></span>
+        <h3 id="scTitle"></h3>
+        <p id="scDesc"></p>
+        <a class="btn btn-dark sc-link" id="scLink" href="#">查看详情 <span class="arr">→</span></a>
+      </div>
+      <div class="sc-visual">
+        <img id="scImg" src="" alt="" decoding="async" />
+      </div>
     </div>
   </div>
 </section>
@@ -67,53 +84,31 @@
 <!-- ============ MLA ============ -->
 <section id="mla">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:40px">
-      <h2>好 Agent 怎么判断 —— MLA 标准</h2>
-      <p class="sub">基模厂商定义「模型如何更强」，我们定义「Agent 为什么值得被喜欢」。</p>
-    </div>
-    <div class="mla">
-      <div class="mla-card reveal" data-d="1" style="--c:#6C5CE7">
-        <div class="mla-art"><img src="assets/mla/01-share.png" alt="可分享" loading="lazy"></div>
-        <div class="mla-body">
-          <span class="mla-num">01</span>
+    <div class="mla-band reveal">
+      <div class="mla-head">
+        <h2>好 Agent 怎么判断 <span class="mla-dash">—</span> MLA 标准</h2>
+        <p>基于真实体验，我们定义了衡量优质 Agent 的四个维度</p>
+      </div>
+      <div class="mla-items">
+        <div class="mla-item">
+          <div class="mla-ic"><img src="assets/mla/01-share.jpg" alt="可分享" loading="lazy"></div>
           <h3>可分享</h3>
-          <div class="mla-line">
-            <p>让成果自然传播</p>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8.5 12H15M12 8.8 15.2 12 12 15.2"/></svg>
-          </div>
+          <p>让成果自然传递</p>
         </div>
-      </div>
-      <div class="mla-card reveal" data-d="2" style="--c:#C08A5A">
-        <div class="mla-art"><img src="assets/mla/02-collab.png" alt="可协作" loading="lazy"></div>
-        <div class="mla-body">
-          <span class="mla-num">02</span>
+        <div class="mla-item">
+          <div class="mla-ic"><img src="assets/mla/02-collab.jpg" alt="可协作" loading="lazy"></div>
           <h3>可协作</h3>
-          <div class="mla-line">
-            <p>支持多人参与</p>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
+          <p>支持多人参与</p>
         </div>
-      </div>
-      <div class="mla-card reveal" data-d="3" style="--c:#7B8CDE">
-        <div class="mla-art"><img src="assets/mla/03-memory.png" alt="可回顾" loading="lazy"></div>
-        <div class="mla-body">
-          <span class="mla-num">03</span>
+        <div class="mla-item">
+          <div class="mla-ic"><img src="assets/mla/03-memory.jpg" alt="可回顾" loading="lazy"></div>
           <h3>可回顾</h3>
-          <div class="mla-line">
-            <p>记忆持续沉淀</p>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>
-          </div>
+          <p>记忆持续沉淀</p>
         </div>
-      </div>
-      <div class="mla-card reveal" data-d="4" style="--c:#E8837E">
-        <div class="mla-art"><img src="assets/mla/04-lovable.png" alt="可爱" loading="lazy"></div>
-        <div class="mla-body">
-          <span class="mla-num">04</span>
+        <div class="mla-item">
+          <div class="mla-ic"><img src="assets/mla/04-lovable.jpg" alt="可爱" loading="lazy"></div>
           <h3>可爱</h3>
-          <div class="mla-line">
-            <p>让人愿意反复使用</p>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-          </div>
+          <p>让人愿意反复使用</p>
         </div>
       </div>
     </div>
@@ -144,50 +139,63 @@
 
 <script src="data.js"></script>
 <script>
-/* 轮播：取 featured 智能体 */
-const slides = AGENTS.filter(a => a.featured);
-let cur = Math.min(1, slides.length - 1);
-const track = document.getElementById('track');
-const dots = document.getElementById('dots');
-slides.forEach((a, i) => {
-  const c = document.createElement('a');
-  c.href = `agent.html?id=${a.id}`;
-  if (a.img) {
-    c.className = 'card-s has-img';
-    c.innerHTML = `<img class="cs-bg" src="${a.img}" alt="${a.title}" loading="lazy">
-      <div class="cs-inner">
-        <div></div>
-        <div><h3>${a.title}</h3><p>${a.subtitle}</p><div class="more">查看详情 →</div></div>
-      </div>`;
-  } else {
-    c.className = 'card-s ' + a.scene;
-    c.innerHTML = `${a.stars ? '<div class="deco-stars"></div>' : ''}${a.moon ? '<div class="orb"></div>' : ''}
-      <div class="cs-inner">
-        <div class="cs-ico">${a.icon}</div>
-        <div><h3>${a.title}</h3><p>${a.subtitle}</p><div class="more">查看详情 →</div></div>
-      </div>`;
-  }
-  track.appendChild(c);
-  const d = document.createElement('span');
-  d.onclick = (e) => { e.preventDefault(); cur = i; render(); };
-  dots.appendChild(d);
+/* 场景切换：取 featured 智能体 */
+const SCENE_TABS = { bedtime:"睡前陪伴", turtlesoup:"聚会推理", memory:"记忆珍藏", artisan:"知识探索", picturebook:"绘本创作" };
+const SCENE_IMGS = { bedtime:"assets/scenes/bedtime.jpg", turtlesoup:"assets/scenes/turtlesoup.jpg", memory:"assets/scenes/memory.jpg", artisan:"assets/scenes/artisan.jpg", picturebook:"assets/scenes/picturebook.jpg" };
+const SCENE_ORDER = ["memory","bedtime","turtlesoup","artisan","picturebook"];
+const SCENE_ICONS = {
+  bedtime:"<path d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/>",
+  turtlesoup:"<path d='M20 11.5a7.5 7.5 0 0 1-10.8 6.7L4 19.5l1.3-4.1A7.5 7.5 0 1 1 20 11.5z'/><path d='M9 10.5h6M9 13.5h4'/>",
+  memory:"<path d='M20.5 7.8 12 3 3.5 7.8v8.4L12 21l8.5-4.8z'/><path d='M3.7 8 12 12.7 20.3 8M12 12.7V21'/>",
+  artisan:"<path d='M12 6.6C10.4 5.1 7.9 4.6 5 5.1v12.5c2.9-.5 5.4 0 7 1.5 1.6-1.5 4.1-2 7-1.5V5.1c-2.9-.5-5.4 0-7 1.5z'/><path d='M12 6.6V19'/>",
+  picturebook:"<path d='M4.5 12a7.5 7.5 0 0 1 12.9-5.2L20 9'/><path d='M20 4.2V9h-4.8'/><path d='M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4 15'/><path d='M4 19.8V15h4.8'/>"
+};
+const _featured = AGENTS.filter(a => a.featured);
+const SCENES = SCENE_ORDER.map(id => _featured.find(a => a.id === id)).filter(Boolean);
+const tabsEl = document.getElementById('sceneTabs');
+const cardEl = document.getElementById('sceneCard');
+const scBadge = document.getElementById('scBadge');
+const scTitle = document.getElementById('scTitle');
+const scDesc = document.getElementById('scDesc');
+const scLink = document.getElementById('scLink');
+const scImg = document.getElementById('scImg');
+let cur = 0, auto = null, userTouched = false;
+
+SCENES.forEach((a, i) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'scene-tab';
+  b.setAttribute('role', 'tab');
+  b.innerHTML = `<span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${SCENE_ICONS[a.id]||''}</svg></span><span class="st-tx">${SCENE_TABS[a.id]||a.title}</span>`;
+  b.onclick = () => { userTouched = true; clearInterval(auto); if (i !== cur) show(i); };
+  tabsEl.appendChild(b);
+  const pre = new Image(); pre.src = SCENE_IMGS[a.id] || a.img;
 });
-const cards = [...track.children];
-function render(){
-  cards.forEach((c, i) => {
-    let off = i - cur;
-    if (off > 2) off -= slides.length;
-    if (off < -2) off += slides.length;
-    c.dataset.pos = Math.max(-2, Math.min(2, off));
-  });
-  [...dots.children].forEach((d, i) => d.className = i === cur ? 'on' : '');
+
+function apply(a){
+  scBadge.textContent = a.title;
+  scTitle.textContent = a.hero.sub.replace(/[。.]$/, '');
+  scDesc.textContent = a.hero.desc;
+  scLink.href = `agent.html?id=${a.id}`;
+  scImg.src = SCENE_IMGS[a.id] || a.img;
+  scImg.alt = a.title;
 }
-function move(dir){ cur = (cur + dir + slides.length) % slides.length; render(); }
-render();
-let auto = setInterval(() => move(1), 4500);
-const stage = track.parentElement;
-stage.addEventListener('mouseenter', () => clearInterval(auto));
-stage.addEventListener('mouseleave', () => auto = setInterval(() => move(1), 4500));
+function show(i, instant){
+  cur = i;
+  [...tabsEl.children].forEach((t, j) => {
+    t.classList.toggle('on', j === i);
+    t.setAttribute('aria-selected', j === i);
+  });
+  if (instant){ apply(SCENES[i]); return; }
+  cardEl.classList.add('sc-out');
+  setTimeout(() => { apply(SCENES[i]); cardEl.classList.remove('sc-out'); }, 240);
+}
+show(0, true);
+auto = setInterval(() => show((cur + 1) % SCENES.length), 6000);
+cardEl.addEventListener('mouseenter', () => clearInterval(auto));
+cardEl.addEventListener('mouseleave', () => {
+  if (!userTouched) auto = setInterval(() => show((cur + 1) % SCENES.length), 6000);
+});
 
 /* 创建横幅 · 悬浮评论弹幕 */
 const REVIEWS = [
