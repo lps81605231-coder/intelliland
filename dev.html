@@ -12,35 +12,28 @@
 <link rel="stylesheet" href="styles.css" />
 <style>
   /* ============ dev 页面专用 ============ */
-  .dev-builder{padding:28px 0 16px}
+  .dev-builder{padding:28px 0 86px}
   .dev-builder .sec-head{margin-bottom:30px}
-  .dev-builder-card{display:grid;grid-template-columns:minmax(0,.92fr) minmax(360px,1.08fr);background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
-  .db-copy{padding:52px 48px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:18px}
-  .db-copy h3{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.12;max-width:11ch}
-  .db-copy p{font-size:16px;color:var(--muted);font-weight:300;line-height:1.75;max-width:35ch}
-  .db-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%;margin-top:4px}
-  .db-point{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 13px;color:var(--muted);font-size:12.5px;line-height:1.5}
-  .db-point b{display:block;margin-bottom:3px;color:var(--ink);font-size:13.5px;letter-spacing:-.01em}
-  .db-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
-  .db-visual{position:relative;min-height:460px;overflow:hidden;background:linear-gradient(135deg,#f9fbff 0%,#eef3ff 100%)}
-  .db-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.035)}
-  .db-visual::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,0) 18%)}
-
-  /* 获取开发工具 */
-  .dev-tools{padding:76px 0 86px}
-  .dev-tools-panel{display:grid;grid-template-columns:minmax(260px,.82fr) minmax(0,1.28fr);background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
-  .dev-tools-art{position:relative;min-height:394px;overflow:hidden;background:linear-gradient(135deg,#f7f9ff,#eef2f7)}
-  .dev-tools-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:24px;filter:drop-shadow(0 28px 38px rgba(59,91,255,.2))}
-  .dev-tools-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to left,var(--paper) 0,rgba(255,255,255,0) 26%)}
-  .dev-tools-copy{padding:38px;display:grid;align-content:center;gap:16px}
-  .tool-mini{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:23px 24px;display:flex;flex-direction:column;gap:12px;transition:.3s cubic-bezier(.2,.7,.2,1)}
-  .tool-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(59,91,255,.22);background:#fff}
-  .tool-mini .tm-head{display:flex;align-items:center;gap:12px}
-  .tool-mini .tm-label{display:inline-flex;align-items:center;justify-content:center;width:62px;height:28px;border-radius:9px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em;flex:0 0 auto}
-  .tool-mini h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
-  .tool-mini>p{font-size:13.5px;color:var(--muted);font-weight:300;line-height:1.65;flex:1}
-  .tool-mini .tm-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
-  .tool-mini .tm-note{font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+  .dev-workflow{display:grid;grid-template-columns:minmax(360px,.95fr) minmax(0,1.05fr);background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+  .dw-visual{position:relative;order:2;min-height:620px;overflow:hidden;background:radial-gradient(70% 72% at 58% 50%,#fff 0%,#f8fbff 52%,#eef3ff 100%)}
+  .dw-visual::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,.78) 12%,rgba(255,255,255,0) 34%)}
+  .dw-visual img{position:absolute;inset:5% 2% 5% 4%;width:94%;height:90%;object-fit:contain;object-position:center;filter:drop-shadow(0 28px 46px rgba(83,103,180,.10));-webkit-mask-image:radial-gradient(ellipse at center,#000 58%,rgba(0,0,0,.88) 74%,transparent 100%);mask-image:radial-gradient(ellipse at center,#000 58%,rgba(0,0,0,.88) 74%,transparent 100%)}
+  .dw-copy{order:1;padding:46px 48px;display:grid;align-content:center;gap:20px}
+  .dw-head{display:grid;gap:14px}
+  .dw-head h3{font-size:clamp(30px,3.8vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:12ch}
+  .dw-head p{font-size:16px;color:var(--muted);font-weight:300;line-height:1.65;max-width:43ch}
+  .dw-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .dw-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+  .dw-step{padding:13px 14px;min-height:92px;border-right:1px solid var(--line)}
+  .dw-step:last-child{border-right:0}
+  .dw-step b{display:block;margin-bottom:6px;font-size:13.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+  .dw-step span{display:block;color:var(--muted);font-size:12.5px;line-height:1.55}
+  .dw-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+  .dw-tool{padding:18px 0 0}
+  .dw-tool+.dw-tool{border-left:1px solid var(--line);padding-left:20px}
+  .dw-label{display:inline-flex;align-items:center;justify-content:center;width:72px;height:30px;border-radius:9px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em}
+  .dw-tool h4{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+  .dw-tool p{margin-top:8px;color:var(--muted);font-size:13.5px;font-weight:300;line-height:1.55}
 
   /* 申请成为开发者 */
   .dev-apply{padding-top:74px}
@@ -67,23 +60,26 @@
 
   @media(max-width:980px){
     .dev-builder{padding:12px 0 64px}
-    .dev-builder-card,.dev-tools-panel,.apply-layout{grid-template-columns:1fr}
-    .db-copy{padding:34px 28px}
-    .db-visual{min-height:340px}
-    .db-visual::before{background:linear-gradient(to bottom,var(--paper) 0,rgba(255,255,255,0) 16%)}
-    .dev-tools-art{min-height:300px}
-    .dev-tools-art::after{background:linear-gradient(to bottom,rgba(255,255,255,0),var(--paper) 86%)}
-    .dev-tools-copy,.apply{padding:28px}
+    .dev-workflow,.apply-layout{grid-template-columns:1fr}
+    .dw-copy{padding:34px 28px}
+    .dw-visual{min-height:340px}
+    .dw-visual::after{background:linear-gradient(to bottom,rgba(255,255,255,0),var(--paper) 88%)}
+    .apply{padding:28px}
   }
   @media(max-width:880px){
     .form-grid{grid-template-columns:1fr}
-    .db-points{grid-template-columns:1fr}
+    .dw-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .dw-step:nth-child(2){border-right:0}
+    .dw-step:nth-child(-n+2){border-bottom:1px solid var(--line)}
   }
   @media(max-width:560px){
-    .db-copy h3{max-width:12ch}
-    .dev-builder-card,.dev-tools-panel{border-radius:20px}
-    .db-visual{min-height:280px}
-    .dev-tools{padding:62px 0}
+    .dev-workflow{border-radius:20px}
+    .dw-copy{padding:30px 24px}
+    .dw-head h3{max-width:12ch}
+    .dw-visual{min-height:280px}
+    .dw-step{min-height:112px}
+    .dw-tools{grid-template-columns:1fr}
+    .dw-tool+.dw-tool{border-left:0;border-top:1px solid var(--line);padding-left:0}
     .apply{padding:24px 22px}
     .apply-foot .btn-dark{width:100%;justify-content:center}
   }
@@ -143,63 +139,40 @@
       <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">创建智能体</h2>
       <p class="sub">描述想法，生成可发布的 Agent。</p>
     </div>
-    <div class="dev-builder-card reveal in" data-d="1">
-      <div class="db-copy">
-        <span class="sc-badge">Agent Builder</span>
-        <h3>把想法变成可运行的 Agent</h3>
-        <p>写下目标、角色和使用场景，Builder 会整理能力结构、运行配置和预览入口。</p>
-        <div class="db-actions">
+    <div class="dev-workflow reveal in" data-d="1">
+      <div class="dw-visual" aria-hidden="true">
+        <img src="assets/dev/agent-builder-visual.jpg" alt="" loading="eager">
+      </div>
+      <div class="dw-copy">
+        <div class="dw-head">
+          <span class="sc-badge">Agent Builder</span>
+          <h3>把想法变成可运行的 Agent</h3>
+          <p>写下目标和使用场景，Builder 生成配置，Dev Client 负责预览验证。</p>
+        </div>
+        <div class="dw-actions">
           <a class="btn btn-dark" href="#apply">申请创建权限 <span class="arr">→</span></a>
-          <a class="btn btn-ghost" href="#tools">查看开发工具</a>
+          <a class="btn btn-ghost" href="#tools">查看工具链</a>
         </div>
-        <div class="db-points">
-          <span class="db-point"><b>描述想法</b>一句话开始，也能逐步补充细节。</span>
-          <span class="db-point"><b>配置能力</b>沉淀提示词、工具、记忆和流程。</span>
-          <span class="db-point"><b>预览验证</b>在运行环境中检查真实体验。</span>
+        <div class="dw-flow" aria-label="创建流程">
+          <span class="dw-step"><b>描述想法</b><span>一句话开始，也能逐步补充细节。</span></span>
+          <span class="dw-step"><b>生成配置</b><span>沉淀提示词、工具、记忆和流程。</span></span>
+          <span class="dw-step"><b>本地预览</b><span>在运行环境里检查真实体验。</span></span>
+          <span class="dw-step"><b>申请发布</b><span>通过审核后进入正式创建环境。</span></span>
         </div>
-      </div>
-      <div class="db-visual" aria-hidden="true">
-        <img src="assets/cats/creation.png" alt="" loading="eager">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 获取开发工具 ============ -->
-<section class="dev-tools" id="tools">
-  <div class="wrap">
-    <div class="row-head reveal" style="margin-bottom:30px">
-      <div class="row-copy">
-        <h2><img class="row-star" src="assets/sparkle.png" alt="" aria-hidden="true">获取开发工具</h2>
-        <p class="row-sub">Builder 负责生成，Dev Client 负责本地预览，两者组成完整创建工作流。</p>
-      </div>
-    </div>
-
-    <div class="dev-tools-panel reveal" data-d="1">
-      <div class="dev-tools-art" aria-hidden="true">
-        <img src="assets/home/intelligent_agent_universe1.png" alt="" loading="lazy">
-      </div>
-      <div class="dev-tools-copy">
-        <div class="tool-mini">
-          <div class="tm-head">
-            <span class="tm-label">Skill</span>
-            <h3>Agent Builder</h3>
+        <div class="dw-tools" id="tools">
+          <div class="dw-tool">
+            <span class="dw-label">Builder</span>
+            <div>
+              <h4>Agent Builder</h4>
+              <p>整理角色、工具和运行配置。</p>
+            </div>
           </div>
-          <p>创建智能体的核心 skill。输入目标和约束，生成角色设定、运行配置和可维护的 Agent 代码。</p>
-          <div class="tm-foot">
-            <a class="btn btn-dark" href="#">获取 Builder <span class="arr">→</span></a>
-            <span class="tm-note">适合从零创建或迭代已有 Agent</span>
-          </div>
-        </div>
-        <div class="tool-mini">
-          <div class="tm-head">
-            <span class="tm-label">Client</span>
-            <h3>Dev Client</h3>
-          </div>
-          <p>本地智能体预览环境。渲染、调试和验证流程在同一个工作区完成，修改后即时生效。</p>
-          <div class="tm-foot">
-            <a class="btn btn-ghost" href="#">下载客户端</a>
-            <span class="tm-note">macOS Apple Silicon 优先支持</span>
+          <div class="dw-tool">
+            <span class="dw-label">Client</span>
+            <div>
+              <h4>Dev Client</h4>
+              <p>本地预览、调试和验证。</p>
+            </div>
           </div>
         </div>
       </div>
