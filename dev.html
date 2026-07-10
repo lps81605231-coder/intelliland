@@ -49,7 +49,44 @@
   .dw-download-label{color:#7a8598;font-size:12px;font-weight:700;white-space:nowrap}
   .dw-download{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border:1px solid rgba(10,12,16,.09);border-radius:8px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;white-space:nowrap;transition:transform .2s,border-color .2s,color .2s}
   .dw-download:hover{border-color:rgba(74,104,255,.28);color:var(--accent);transform:translateY(-1px)}
-  @media(prefers-reduced-motion:reduce){.dw-step,.dw-step-no,.dw-stage img,.dw-flow-copy,.dw-nav button,.dw-resource,.dw-download{transition:none}}
+  /* 资源栏悬浮弹层：Agent Builder 地址复制 + Dev Client 版本列表 */
+  .dw-pop-wrap{position:relative;display:inline-flex}
+  .dw-pop{position:absolute;left:0;bottom:calc(100% + 12px);z-index:40;background:#fff;border:1px solid rgba(10,12,16,.1);border-radius:14px;box-shadow:0 28px 56px -20px rgba(24,34,68,.4),0 6px 18px -10px rgba(24,34,68,.22);opacity:0;visibility:hidden;transform:translateY(9px) scale(.96);transform-origin:bottom left;transition:opacity .2s ease,transform .28s cubic-bezier(.2,.7,.2,1.1),visibility 0s linear .2s;pointer-events:none}
+  .dw-pop::before{content:"";position:absolute;left:26px;bottom:-6.5px;width:12px;height:12px;background:#fff;border-right:1px solid rgba(10,12,16,.1);border-bottom:1px solid rgba(10,12,16,.1);border-bottom-right-radius:3px;transform:rotate(45deg)}
+  .dw-pop::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+  .dw-pop-wrap:hover .dw-pop,.dw-pop-wrap:focus-within .dw-pop{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:auto;transition-delay:0s}
+  .dw-pop-title{display:flex;align-items:center;gap:6px;margin:0 0 10px;color:#7a8598;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .dw-pop-title svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .dw-copy-pop{width:600px;max-width:calc(100vw - 116px);padding:15px 15px 13px}
+  .dw-copy-row{display:flex;align-items:stretch;gap:8px}
+  .dw-copy-row input{flex:1;min-width:0;height:38px;padding:0 12px;border:1px solid rgba(10,12,16,.08);border-radius:9px;background:#f5f7fd;color:var(--ink-2);font-family:var(--mono);font-size:11.5px;outline:none;transition:border-color .18s,background .18s,box-shadow .18s}
+  .dw-copy-row input:focus{border-color:rgba(74,104,255,.45);background:#fff;box-shadow:0 0 0 3px rgba(74,104,255,.12)}
+  .dw-copy-row input::selection{background:rgba(74,104,255,.22)}
+  .dw-copy-btn{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;height:38px;padding:0 13px;border:none;border-radius:9px;background:linear-gradient(135deg,#755cff 0%,#1677ff 100%);color:#fff;font-family:var(--sans);font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 10px 20px -10px rgba(59,91,255,.75);transition:transform .18s,box-shadow .18s,background .25s}
+  .dw-copy-btn:hover{transform:translateY(-1px);box-shadow:0 14px 24px -12px rgba(59,91,255,.85)}
+  .dw-copy-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .dw-copy-btn .ic-check{display:none}
+  .dw-copy-btn.ok{background:linear-gradient(135deg,#0eaf6d,#0c9d8f);box-shadow:0 10px 20px -10px rgba(14,158,120,.7)}
+  .dw-copy-btn.ok .ic-copy{display:none}
+  .dw-copy-btn.ok .ic-check{display:block}
+  .dw-pop-hint{margin:9px 2px 0;color:#8b94a5;font-size:11.5px;font-weight:300;line-height:1.5}
+  .dw-pop-hint.warn{color:#d97706;font-weight:500}
+  .dw-download-main{gap:6px;padding:0 14px;border:none;background:linear-gradient(135deg,#755cff 0%,#1677ff 100%);color:#fff;box-shadow:0 12px 22px -12px rgba(59,91,255,.8)}
+  .dw-download-main:hover{color:#fff;border:none;transform:translateY(-1px);box-shadow:0 16px 26px -13px rgba(59,91,255,.9)}
+  .dw-download-main svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .dw-ver-pop{left:auto;right:0;transform-origin:bottom right;min-width:252px;padding:7px}
+  .dw-ver-pop::before{left:auto;right:26px}
+  .dw-ver-pop .dw-pop-title{margin:6px 9px 7px}
+  .dw-ver-item{display:flex;align-items:center;gap:14px;padding:9px 10px 8px;border-radius:9px;color:var(--ink);transition:background .16s}
+  .dw-ver-item:hover{background:#eef3ff}
+  .dw-ver-info{min-width:0}
+  .dw-ver-no{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+  .dw-ver-tag{display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:99px;background:rgba(74,104,255,.1);color:var(--accent);font-family:var(--mono);font-size:9px;font-weight:700;font-style:normal;letter-spacing:.04em}
+  .dw-ver-meta{display:block;margin-top:3px;color:#8b94a5;font-family:var(--mono);font-size:10px;font-weight:500;white-space:nowrap}
+  .dw-ver-dl{display:grid;place-items:center;flex:0 0 auto;width:28px;height:28px;margin-left:auto;border-radius:8px;background:#fff;border:1px solid rgba(10,12,16,.09);color:#7a8598;transition:color .16s,border-color .16s,transform .16s}
+  .dw-ver-item:hover .dw-ver-dl{color:var(--accent);border-color:rgba(74,104,255,.3);transform:translateY(1px)}
+  .dw-ver-dl svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  @media(prefers-reduced-motion:reduce){.dw-step,.dw-step-no,.dw-stage img,.dw-flow-copy,.dw-nav button,.dw-resource,.dw-download,.dw-pop,.dw-copy-btn,.dw-ver-item,.dw-ver-dl{transition:none}}
 
   /* 申请成为开发者 */
   .dev-apply{padding:0 0 104px;overflow:hidden}
@@ -171,9 +208,11 @@
     .dw-nav{gap:6px;padding-top:3px}
     .dw-nav button{width:36px;height:36px;border-radius:9px;font-size:20px}
     .dw-resources{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 18px}
+    .dw-pop-wrap{width:100%;min-width:0}
+    .dw-pop-wrap .dw-resource,.dw-pop-wrap .dw-download{width:100%}
     .dw-resource{justify-content:space-between;width:100%;min-width:0;padding:0 11px;font-size:12px}
     .dw-resource-sep{display:none}
-    .dw-downloads{grid-column:1 / -1;display:grid;grid-template-columns:auto 1fr 1fr;gap:7px;width:100%}
+    .dw-downloads{grid-column:1 / -1;display:grid;grid-template-columns:auto 1fr;gap:7px;width:100%}
     .dw-download-label{font-size:11px}
     .dw-download{min-width:0;padding:0 8px;font-size:11px}
     .dev-apply{padding:0 0 82px}
@@ -201,6 +240,71 @@
 
 <div data-site-header data-active="dev" data-cta-href="https://intelliland.cn/dev-app" data-cta-target="_blank" data-mobile-cta-arrow="false"></div>
 <div data-intelliland-hero></div>
+
+<!-- ============ 创建智能体 ============ -->
+<section class="dev-builder" id="builder">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:30px">
+      <h2 data-typewriter aria-label="开始你的第一个智能体"><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true"><span class="tw-text">开始你的第一个智能体</span><span class="tw-caret" aria-hidden="true"></span></h2>
+      <p class="sub">描述想法，生成可发布的 Agent。</p>
+    </div>
+    <div class="dw-stepper-wrap reveal" data-d="1">
+      <div class="dw-stepper-scroll">
+        <div class="dw-stepper" id="devTabs" role="tablist" aria-label="创建智能体流程">
+          <button type="button" class="dw-step on" id="devTab01" role="tab" aria-selected="true" aria-controls="devPanel" tabindex="0"><span class="dw-step-no">01</span><span class="dw-step-label">复制仓库地址</span><span class="dw-step-sub">获取项目起点</span></button>
+          <button type="button" class="dw-step" id="devTab02" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">02</span><span class="dw-step-label">粘贴给 Agent</span><span class="dw-step-sub">读取上下文</span></button>
+          <button type="button" class="dw-step" id="devTab03" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">03</span><span class="dw-step-label">安装 Plugin</span><span class="dw-step-sub">自动补齐依赖</span></button>
+          <button type="button" class="dw-step" id="devTab04" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">04</span><span class="dw-step-label">描述需求</span><span class="dw-step-sub">自然语言说明</span></button>
+          <button type="button" class="dw-step" id="devTab05" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">05</span><span class="dw-step-label">生成工程</span><span class="dw-step-sub">得到可运行工程</span></button>
+          <button type="button" class="dw-step" id="devTab06" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">06</span><span class="dw-step-label">上传 Agent</span><span class="dw-step-sub">上传到客户端</span></button>
+          <button type="button" class="dw-step" id="devTab07" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">07</span><span class="dw-step-label">同步调试</span><span class="dw-step-sub">预览并验证</span></button>
+          <button type="button" class="dw-step" id="devTab08" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">08</span><span class="dw-step-label">发布公开</span><span class="dw-step-sub">上架到市场</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="dev-workflow reveal" data-d="2" id="devCard">
+      <div class="dw-stage" id="devPanel" role="tabpanel" aria-labelledby="devTab01" tabindex="0">
+        <img id="dwStepImage" src="assets/dev/steps/step-01-copy-github-url.png" alt="步骤 1：复制 GitHub 仓库地址" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+      <div class="dw-flow-info">
+        <div class="dw-flow-copy" aria-live="polite">
+          <p class="dw-flow-count" id="dwCount">01 / 08</p>
+          <h3 id="dwTitle">复制 GitHub 仓库地址</h3>
+          <p id="dwDesc">从 GitHub 复制项目链接，作为创建 Agent 的起点。</p>
+        </div>
+        <div class="dw-nav" aria-label="切换创建步骤">
+          <button type="button" id="dwPrev" aria-label="上一步" title="上一步">←</button>
+          <button type="button" id="dwNext" aria-label="下一步" title="下一步">→</button>
+        </div>
+      </div>
+      <div class="dw-resources" aria-label="相关工具">
+        <div class="dw-pop-wrap">
+          <a class="dw-resource" href="https://github.com/uselessspace/freedeepagents-activity-builder" target="_blank" rel="noopener"><span>Agent Builder</span><span class="dw-resource-note">GitHub</span></a>
+          <div class="dw-pop dw-copy-pop" role="group" aria-label="Agent Builder 仓库地址">
+            <p class="dw-pop-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>仓库地址</p>
+            <div class="dw-copy-row">
+              <input id="builderRepoUrl" type="text" value="https://github.com/uselessspace/freedeepagents-activity-builder" readonly spellcheck="false" aria-label="Agent Builder 仓库地址" />
+              <button type="button" class="dw-copy-btn" id="builderCopyBtn">
+                <svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <svg class="ic-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+                <span>复制</span>
+              </button>
+            </div>
+            <p class="dw-pop-hint" id="builderCopyHint">复制仓库地址，粘贴给你的 Coding Agent 即可开始。</p>
+          </div>
+        </div>
+        <span class="dw-resource-sep" aria-hidden="true"></span>
+        <div class="dw-downloads" aria-label="Dev Client 下载选项">
+          <span class="dw-download-label">Dev Client</span>
+          <div class="dw-pop-wrap">
+            <a class="dw-download dw-download-main" id="dlBtn" href="https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-macOS-arm64.dmg" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"></path><path d="m6.5 10.5 5.5 5 5.5-5"></path><path d="M4.5 20h15"></path></svg>立即下载</a>
+            <div class="dw-pop dw-ver-pop" id="dlPop" aria-label="选择下载版本"><p class="dw-pop-title" id="dlPopTitle">选择平台</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ 平台能力 ============ -->
 <section class="plat-intro" id="platform">
@@ -260,55 +364,6 @@
       </div>
       <div class="pp-visual">
         <img class="pp-img" id="ppImg" src="assets/platform/build.png" alt="自然语言构建：描述想法即可生成 Agent" width="1448" height="1086" decoding="async" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 创建智能体 ============ -->
-<section class="dev-builder" id="builder">
-  <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:30px">
-      <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">开始你的第一个智能体</h2>
-      <p class="sub">描述想法，生成可发布的 Agent。</p>
-    </div>
-    <div class="dw-stepper-wrap reveal" data-d="1">
-      <div class="dw-stepper-scroll">
-        <div class="dw-stepper" id="devTabs" role="tablist" aria-label="创建智能体流程">
-          <button type="button" class="dw-step on" id="devTab01" role="tab" aria-selected="true" aria-controls="devPanel" tabindex="0"><span class="dw-step-no">01</span><span class="dw-step-label">复制仓库地址</span><span class="dw-step-sub">获取项目起点</span></button>
-          <button type="button" class="dw-step" id="devTab02" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">02</span><span class="dw-step-label">粘贴给 Agent</span><span class="dw-step-sub">读取上下文</span></button>
-          <button type="button" class="dw-step" id="devTab03" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">03</span><span class="dw-step-label">安装 Plugin</span><span class="dw-step-sub">自动补齐依赖</span></button>
-          <button type="button" class="dw-step" id="devTab04" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">04</span><span class="dw-step-label">描述需求</span><span class="dw-step-sub">自然语言说明</span></button>
-          <button type="button" class="dw-step" id="devTab05" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">05</span><span class="dw-step-label">生成工程</span><span class="dw-step-sub">得到可运行工程</span></button>
-          <button type="button" class="dw-step" id="devTab06" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">06</span><span class="dw-step-label">上传 Agent</span><span class="dw-step-sub">上传到客户端</span></button>
-          <button type="button" class="dw-step" id="devTab07" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">07</span><span class="dw-step-label">同步调试</span><span class="dw-step-sub">预览并验证</span></button>
-          <button type="button" class="dw-step" id="devTab08" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">08</span><span class="dw-step-label">发布公开</span><span class="dw-step-sub">上架到市场</span></button>
-        </div>
-      </div>
-    </div>
-    <div class="dev-workflow reveal" data-d="2" id="devCard">
-      <div class="dw-stage" id="devPanel" role="tabpanel" aria-labelledby="devTab01" tabindex="0">
-        <img id="dwStepImage" src="assets/dev/steps/step-01-copy-github-url.png" alt="步骤 1：复制 GitHub 仓库地址" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async">
-      </div>
-      <div class="dw-flow-info">
-        <div class="dw-flow-copy" aria-live="polite">
-          <p class="dw-flow-count" id="dwCount">01 / 08</p>
-          <h3 id="dwTitle">复制 GitHub 仓库地址</h3>
-          <p id="dwDesc">从 GitHub 复制项目链接，作为创建 Agent 的起点。</p>
-        </div>
-        <div class="dw-nav" aria-label="切换创建步骤">
-          <button type="button" id="dwPrev" aria-label="上一步" title="上一步">←</button>
-          <button type="button" id="dwNext" aria-label="下一步" title="下一步">→</button>
-        </div>
-      </div>
-      <div class="dw-resources" aria-label="相关工具">
-        <a class="dw-resource" href="https://github.com/uselessspace/freedeepagents-activity-builder" target="_blank" rel="noopener"><span>Agent Builder</span><span class="dw-resource-note">GitHub</span></a>
-        <span class="dw-resource-sep" aria-hidden="true"></span>
-        <div class="dw-downloads" aria-label="Dev Client 下载选项">
-          <span class="dw-download-label">Dev Client</span>
-          <a class="dw-download" href="https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-macOS-arm64.dmg" target="_blank" rel="noopener">下载 Mac 版</a>
-          <a class="dw-download" href="https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-windows-x64.zip" target="_blank" rel="noopener">下载 Windows 版</a>
-        </div>
       </div>
     </div>
   </div>
@@ -538,6 +593,74 @@ devRestart();
   el.addEventListener('pointerenter', () => clearInterval(devAuto));
   el.addEventListener('pointerleave', devRestart);
 });
+
+/* ============ 资源栏 · Agent Builder 地址一键复制 ============ */
+const builderCopyBtn = document.getElementById('builderCopyBtn');
+const builderUrlInput = document.getElementById('builderRepoUrl');
+const builderCopyHint = document.getElementById('builderCopyHint');
+const BUILDER_HINT_DEFAULT = builderCopyHint.textContent;
+let copyResetTimer = null;
+builderUrlInput.addEventListener('focus', () => builderUrlInput.select());
+function copyFeedback(ok){
+  clearTimeout(copyResetTimer);
+  if (ok){
+    builderCopyBtn.classList.add('ok');
+    builderCopyBtn.querySelector('span').textContent = '已复制';
+    builderCopyHint.classList.remove('warn');
+    builderCopyHint.textContent = '已复制到剪贴板，去粘贴给你的 Coding Agent 吧。';
+  } else {
+    builderCopyHint.classList.add('warn');
+    builderCopyHint.textContent = '浏览器拦截了自动复制，地址已选中，请按 Ctrl / ⌘ + C 复制。';
+  }
+  copyResetTimer = setTimeout(() => {
+    builderCopyBtn.classList.remove('ok');
+    builderCopyBtn.querySelector('span').textContent = '复制';
+    builderCopyHint.classList.remove('warn');
+    builderCopyHint.textContent = BUILDER_HINT_DEFAULT;
+  }, 2600);
+}
+builderCopyBtn.addEventListener('click', () => {
+  builderUrlInput.select();
+  builderUrlInput.setSelectionRange(0, builderUrlInput.value.length);
+  const fallback = () => {
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (_) {}
+    copyFeedback(ok);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(builderUrlInput.value).then(() => copyFeedback(true), fallback);
+  } else {
+    fallback();
+  }
+});
+
+/* ============ 资源栏 · Dev Client 立即下载（发新版时更新这里即可） ============ */
+const DEV_CLIENT_LATEST = {
+  ver: 'v0.3.0',
+  mac: { label: '下载 Mac 版', meta: 'Apple Silicon · .dmg', href: 'https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-macOS-arm64.dmg' },
+  win: { label: '下载 Windows 版', meta: 'x64 · .zip', href: 'https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-windows-x64.zip' }
+};
+const dlBtn = document.getElementById('dlBtn');
+const dlPop = document.getElementById('dlPop');
+document.getElementById('dlPopTitle').textContent = `选择平台 · ${DEV_CLIENT_LATEST.ver}`;
+['mac', 'win'].forEach(key => {
+  const pkg = DEV_CLIENT_LATEST[key];
+  const item = document.createElement('a');
+  item.className = 'dw-ver-item';
+  item.href = pkg.href;
+  item.target = '_blank';
+  item.rel = 'noopener';
+  item.innerHTML = `
+    <span class="dw-ver-info">
+      <span class="dw-ver-no">${pkg.label}<em class="dw-ver-tag">${DEV_CLIENT_LATEST.ver}</em></span>
+      <span class="dw-ver-meta">${pkg.meta}</span>
+    </span>
+    <span class="dw-ver-dl" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m6.5 10.5 5.5 5 5.5-5"></path><path d="M4.5 20h15"></path></svg></span>`;
+  dlPop.appendChild(item);
+});
+/* 主按钮按访问者系统指向对应安装包 */
+const prefersMac = /mac|iphone|ipad/i.test(navigator.platform || navigator.userAgent);
+dlBtn.href = (prefersMac ? DEV_CLIENT_LATEST.mac : DEV_CLIENT_LATEST.win).href;
 
 </script>
 <script src="footer.js"></script>
