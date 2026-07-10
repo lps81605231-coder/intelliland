@@ -78,13 +78,20 @@ nav{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minm
 .brand-txt b{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.02em;display:block;line-height:1}
 .brand-txt span{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.22em}
 /* segmented pill nav: a clear, tappable section switcher */
-.navlinks{grid-column:2;justify-self:center;display:inline-flex;align-items:center;gap:4px;background:var(--bg-2);border:1px solid var(--line);border-radius:100px;padding:5px;box-shadow:inset 0 1px 2px rgba(10,12,16,.05)}
+.navlinks{position:relative;grid-column:2;justify-self:center;display:inline-flex;align-items:center;gap:4px;background:var(--bg-2);border:1px solid var(--line);border-radius:100px;padding:5px;box-shadow:inset 0 1px 2px rgba(10,12,16,.05);transition:box-shadow .3s ease}
 .nav-slot{grid-column:2;justify-self:center;width:0;height:1px;overflow:hidden;pointer-events:none}
 .navlinks a{position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:100px;font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--muted);transition:color .25s,background .25s,box-shadow .3s cubic-bezier(.2,.7,.2,1),transform .2s}
 .navlinks a:hover{color:var(--ink);background:rgba(255,255,255,.62)}
 .navlinks a:active{transform:translateY(.5px)}
 .navlinks a.active{color:var(--ink);background:var(--paper);box-shadow:0 2px 9px -2px rgba(20,28,48,.22),0 0 0 1px rgba(10,12,16,.04)}
 .navlinks a.active::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);flex:0 0 auto;animation:pulse 2.4s infinite}
+/* 悬停：七彩跑马灯边框（呼应右上角「立即体验」CTA） */
+@property --nav-ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.navlinks::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--nav-ang),#ff4d6d,#ffb347,#ffe74a,#43e97b,#19c7e6,#4a68ff,#b06cff,#ff4d6d);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s ease;pointer-events:none}
+.navlinks:hover{box-shadow:inset 0 1px 2px rgba(10,12,16,.05),0 8px 22px -12px rgba(122,92,255,.5)}
+.navlinks:hover::after{opacity:1;animation:navSpin 2.4s linear infinite}
+@keyframes navSpin{to{--nav-ang:360deg}}
+@media(prefers-reduced-motion:reduce){.navlinks:hover::after{animation:none}}
 .nav-actions{grid-column:3;justify-self:end;display:flex;gap:12px;align-items:center}
 .menu-btn{display:none}
 
