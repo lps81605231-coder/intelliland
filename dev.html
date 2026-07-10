@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>创建你自己的 Agent · intelliland</title>
-<meta name="description" content="人人都能创建属于自己的 AI Agent。用自然语言描述想法，Agent Builder 自动生成可运行的智能体。" />
+<meta name="description" content="在 intelliland 创建属于自己的 AI Agent：平台提供自带沙箱的 AgentRuntime、自动化部署与持久化系统，用自然语言描述想法即可生成可运行、可长期交互的智能体。" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -12,44 +12,46 @@
 <link rel="stylesheet" href="styles.css" />
 <style>
   /* ============ dev 页面专用 ============ */
-  .dev-builder{padding:28px 0 28px}
-  .dev-builder .sec-head{margin-bottom:30px}
-  .dev-workflow{display:grid;grid-template-columns:1fr 1.15fr;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
-  .dw-visual{position:relative;order:2;min-height:440px;overflow:hidden;background:radial-gradient(70% 72% at 58% 50%,#fff 0%,#f8fbff 52%,#eef3ff 100%)}
-  .dw-visual::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,.95) 0,rgba(248,251,255,.68) 9%,rgba(248,251,255,0) 23%),linear-gradient(to left,rgba(238,243,255,.94) 0,rgba(238,243,255,.58) 8%,rgba(238,243,255,0) 21%),linear-gradient(to top,rgba(238,243,255,.96) 0,rgba(245,248,255,.70) 9%,rgba(245,248,255,0) 24%)}
-  .dw-visual::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to right,var(--paper) 0,rgba(255,255,255,.78) 12%,rgba(255,255,255,0) 34%)}
-  .dw-visual img{position:absolute;z-index:1;inset:-3% -7% -3% 0;width:108%;height:106%;object-fit:contain;object-position:center;filter:drop-shadow(0 28px 46px rgba(83,103,180,.10));-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to left,transparent 0,#000 11%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(to left,transparent 0,#000 11%,#000 100%);mask-composite:intersect}
-  .dw-copy{order:1;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px}
-  .dw-head{display:contents}
-  .dw-head .sc-badge{justify-self:start}
-  .dw-head h3{font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.3;max-width:12ch}
-  .dw-head p{font-size:15px;color:var(--muted);font-weight:300;line-height:1.65;max-width:40ch}
-  .dw-process-wrap{position:relative;width:fit-content;max-width:100%;margin:0 auto 34px}
-  .dw-process{display:flex;width:fit-content;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);padding:8px;overflow:hidden}
-  .dw-process-step{position:relative;flex:0 0 auto;min-width:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:14px 22px 12px;text-align:center;color:var(--ink-2);font-weight:800;letter-spacing:-.02em}
-  .dw-process-step+.dw-process-step::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);height:42%;width:1px;background:var(--line)}
-  .dw-process-step:first-child{color:var(--accent)}
-  .dw-process-icon{width:26px;height:26px;color:var(--muted)}
-  .dw-process-step:first-child .dw-process-icon{color:var(--accent)}
-  .dw-process-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-  .dw-process-label{font-size:14.5px;line-height:1.6;white-space:nowrap}
-  .dw-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:2px}
-  .dw-tool{position:relative;display:inline-flex;align-items:center;gap:10px;min-width:0;width:100%;padding:10px 14px 10px 10px;border:1px solid rgba(10,12,16,.08);border-radius:999px;background:rgba(255,255,255,.78);box-shadow:0 18px 42px -30px rgba(20,28,48,.48);backdrop-filter:blur(12px);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,border-color .25s,background .25s}
-  .dw-tool:hover{transform:translateY(-2px);border-color:rgba(10,12,16,.14);box-shadow:0 24px 48px -32px rgba(20,28,48,.52);background:#fff}
-  .dw-tool:first-child{background:var(--ink);border-color:rgba(10,12,16,.1);color:#fff;box-shadow:0 22px 46px -28px rgba(10,12,16,.55)}
-  .dw-tool:first-child:hover{background:#151922}
-  .dw-tool::after{content:"";width:7px;height:7px;margin-left:auto;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);opacity:.36;flex:0 0 auto}
-  .dw-label{display:inline-flex;align-items:center;justify-content:center;min-width:64px;height:36px;border-radius:999px;background:#edf3ff;color:var(--accent);font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:0 11px;flex:0 0 auto}
-  .dw-tool:first-child .dw-label{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14);color:#fff}
-  .dw-tool h4{font-size:14.5px;font-weight:800;letter-spacing:-.01em;line-height:1.15;white-space:nowrap}
-  .dw-tool p{display:none}
-  .dw-tool:first-child p{color:rgba(255,255,255,.66)}
+  .dev-builder{padding:28px 0 44px}
+  .dev-builder .sec-head{margin-bottom:32px}
+  .dw-stepper-wrap{max-width:100%;margin:0 auto 30px}
+  .dw-stepper-scroll{max-width:100%}
+  .dw-stepper{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;padding:7px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm)}
+  .dw-step{position:relative;display:flex;align-items:center;justify-content:flex-start;gap:9px;min-width:0;min-height:56px;padding:10px 11px;border:0;border-radius:12px;background:transparent;color:var(--ink-2);font-family:var(--sans);font-size:13px;font-weight:800;letter-spacing:0;text-align:left;cursor:pointer;transition:background .22s,color .22s,box-shadow .22s}
+  .dw-step:hover{background:#f4f6ff;color:var(--ink)}
+  .dw-step.on{background:#eef3ff;color:var(--accent);box-shadow:inset 0 0 0 1px rgba(74,104,255,.13)}
+  .dw-step:focus-visible,.dw-nav button:focus-visible,.dw-resource:focus-visible,.dw-download:focus-visible{outline:3px solid rgba(74,104,255,.3);outline-offset:2px}
+  .dw-step-no{display:grid;place-items:center;width:27px;height:27px;flex:0 0 27px;border-radius:50%;background:#f0f2f7;color:#7c8596;font-family:var(--mono);font-size:10px;font-weight:700;line-height:1;transition:background .22s,color .22s}
+  .dw-step.on .dw-step-no{background:var(--accent);color:#fff}
+  .dw-step-label{min-width:0;line-height:1.3;overflow-wrap:anywhere}
+  .dev-workflow{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+  .dw-stage{position:relative;aspect-ratio:16 / 9;min-width:0;background:#f5f7ff;overflow:hidden}
+  .dw-stage img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .22s ease,transform .22s ease}
+  .dev-workflow.sc-out .dw-stage img,.dev-workflow.sc-out .dw-flow-copy{opacity:0;transform:translateY(8px)}
+  .dw-flow-info{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:23px 28px 22px;border-top:1px solid rgba(10,12,16,.07)}
+  .dw-flow-copy{min-width:0;transition:opacity .22s ease,transform .22s ease}
+  .dw-flow-count{margin:0 0 5px;color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.03em}
+  .dw-flow-copy h3{margin:0;font-size:clamp(20px,2vw,27px);font-weight:800;letter-spacing:0;line-height:1.3}
+  .dw-flow-copy p:last-child{margin:7px 0 0;color:var(--muted);font-size:14px;font-weight:300;line-height:1.6}
+  .dw-nav{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .dw-nav button{display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(10,12,16,.09);border-radius:10px;background:#fff;color:var(--ink);font:400 22px/1 var(--sans);cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}
+  .dw-nav button:hover{background:#edf3ff;border-color:rgba(74,104,255,.22);color:var(--accent);transform:translateY(-1px)}
+  .dw-resources{display:flex;align-items:center;gap:12px;min-height:72px;padding:14px 28px;border-top:1px solid rgba(10,12,16,.07);background:rgba(250,251,255,.78)}
+  .dw-resource{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 13px;border:1px solid rgba(10,12,16,.09);border-radius:9px;background:#fff;color:var(--ink);font-size:13px;font-weight:800;white-space:nowrap;transition:transform .2s,border-color .2s,box-shadow .2s}
+  .dw-resource:hover{border-color:rgba(74,104,255,.28);box-shadow:0 12px 24px -20px rgba(40,57,125,.55);transform:translateY(-1px)}
+  .dw-resource-note{color:#7a8598;font-family:var(--mono);font-size:10px;font-weight:700}
+  .dw-resource-sep{width:1px;height:22px;background:rgba(10,12,16,.11)}
+  .dw-downloads{display:flex;align-items:center;gap:8px;min-width:0}
+  .dw-download-label{color:#7a8598;font-size:12px;font-weight:700;white-space:nowrap}
+  .dw-download{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border:1px solid rgba(10,12,16,.09);border-radius:8px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;white-space:nowrap;transition:transform .2s,border-color .2s,color .2s}
+  .dw-download:hover{border-color:rgba(74,104,255,.28);color:var(--accent);transform:translateY(-1px)}
+  @media(prefers-reduced-motion:reduce){.dw-step,.dw-step-no,.dw-stage img,.dw-flow-copy,.dw-nav button,.dw-resource,.dw-download{transition:none}}
 
   /* 申请成为开发者 */
   .dev-apply{padding:0 0 104px;overflow:hidden}
   .dev-apply .wrap{max-width:1180px}
   .apply-layout{display:grid;grid-template-columns:minmax(320px,.58fr) minmax(0,1fr);gap:44px;align-items:center;max-width:100%;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:40px 46px;overflow:hidden}
-  .apply-intro{position:relative;min-height:532px;padding:8px 0 116px}
+  .apply-intro{position:relative;min-height:532px;padding:34px 0 90px}
   .apply-intro::before{content:"";position:absolute;left:-94px;bottom:-104px;width:450px;height:180px;border-radius:50%;background:linear-gradient(135deg,rgba(91,112,255,.18),rgba(25,199,230,.07));filter:blur(26px);pointer-events:none}
   .apply-intro h2{position:relative;z-index:1;display:flex;align-items:center;gap:12px;font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
   .apply-intro h2 .row-star{width:.94em;height:.94em;margin:0;filter:drop-shadow(0 12px 20px rgba(91,112,255,.22))}
@@ -83,35 +85,90 @@
 
   @media(max-width:980px){
     .dev-builder{padding:12px 0 28px}
-    .dev-workflow,.apply-layout{grid-template-columns:1fr}
+    .apply-layout{grid-template-columns:1fr}
     .dev-apply{padding:0 0 96px}
     .dev-apply .wrap{max-width:1180px}
     .apply-layout{gap:38px;padding:34px}
     .apply-intro{min-height:0;padding:0 0 250px}
     .apply-visual{left:50%;bottom:-28px;width:300px;transform:translateX(-50%)}
-    .dw-copy{padding:34px 28px}
-    .dw-visual{min-height:340px}
-    .dw-process-wrap{max-width:100%;margin-bottom:28px}
-    .dw-process{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .dw-process-step{min-width:110px;padding:12px 14px}
-    .dw-visual::after{background:linear-gradient(to bottom,rgba(255,255,255,0),var(--paper) 88%)}
+    .dw-stepper-scroll{overflow-x:auto;padding:2px;-webkit-overflow-scrolling:touch}
+    .dw-stepper{display:flex;width:max-content;min-width:100%}
+    .dw-step{width:136px;flex:0 0 136px}
+    .dw-flow-info{padding:20px 24px}
+    .dw-resources{padding:14px 24px;flex-wrap:wrap}
     .apply{padding:0}
   }
   @media(max-width:880px){
     .form-grid{grid-template-columns:1fr}
   }
+
+  /* ============ 平台能力（合并自平台能力页） ============ */
+  .plat-intro{padding:28px 0 64px}
+  .plat-intro .sec-head{margin-bottom:30px}
+  /* 工作流格子条：可点击 tab，与首页场景 tab 同构 */
+  .pf-strip-wrap{position:relative;width:fit-content;max-width:100%;margin:0 auto 34px}
+  .pf-strip{display:flex;width:fit-content;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);padding:8px}
+  .pf-step{position:relative;flex:0 0 auto;min-width:158px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 24px 16px;text-align:center;background:none;border:none;border-radius:12px;font-family:var(--sans);cursor:pointer}
+  .pf-step+.pf-step::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);height:46%;width:1px;background:var(--line)}
+  .pf-ic{width:26px;height:26px;color:var(--muted);transition:color .25s,transform .3s cubic-bezier(.2,.7,.2,1)}
+  .pf-ic svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+  .pf-step b{font-size:14.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink-2);line-height:1.3;transition:color .25s}
+  .pf-step span{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5;white-space:nowrap}
+  .pf-step:hover b{color:var(--ink)}
+  .pf-step:hover .pf-ic{color:var(--ink-2);transform:translateY(-2px)}
+  .pf-step.on b,.pf-step.on .pf-ic{color:var(--accent)}
+  /* 切换卡片：右侧使用统一 4:3 画布，并以轻量羽化融入背景 */
+  .plat-position{display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.55fr);min-height:520px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+  .pp-copy{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px}
+  .pp-copy .sc-badge{justify-self:start}
+  .pp-copy h3{font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.3;max-width:16ch}
+  .pp-copy p{font-size:15px;color:var(--muted);font-weight:300;line-height:1.65;max-width:40ch}
+  /* 背景取图内浅紫底色区间，避免出现比图更亮的中心而露出矩形边缘 */
+  .pp-visual{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;padding:20px 22px 20px 0;background:radial-gradient(80% 82% at 50% 44%,#f4f5fc 0%,#eef0fa 66%,#e9ecf7 100%)}
+  .pp-img{position:relative;z-index:1;display:block;width:100%;height:auto;max-width:780px;aspect-ratio:4/3;object-fit:contain;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);mask-composite:intersect}
+  /* tab 切换渐隐（与首页 scene-card 同款） */
+  .pp-copy>*,.pp-img{transition:opacity .24s ease,translate .24s ease}
+  .plat-position.sc-out .pp-copy>*{opacity:0;translate:0 10px}
+  .plat-position.sc-out .pp-img{opacity:0}
+  @media(prefers-reduced-motion:reduce){.pp-copy>*,.pp-img{transition:none}}
+  @media(max-width:980px){
+    .plat-intro{padding:12px 0 44px}
+    .plat-position{grid-template-columns:1fr;min-height:0}
+    .pp-copy{padding:34px 28px 12px}
+    .pp-visual{min-height:0;padding:12px 16px 24px}
+    .pp-img{max-width:760px}
+    .pf-strip-wrap{max-width:100%}
+    .pf-strip{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .pf-step{min-width:132px;padding:15px 16px 13px}
+  }
+  @media(max-width:560px){
+    .plat-position{border-radius:20px}
+    .pp-copy{padding:30px 24px 8px}
+    .pp-visual{padding:10px 10px 18px}
+    .pf-step{min-width:118px;padding:13px 12px 11px;gap:6px}
+    .pf-ic{width:22px;height:22px}
+    .pf-step b{font-size:13px}
+    .pf-step span{font-size:11px}
+  }
   @media(max-width:560px){
     .dev-workflow{border-radius:20px}
-    .dw-copy{padding:30px 24px}
-    .dw-head h3{max-width:12ch}
-    .dw-visual{min-height:280px}
-    .dw-process-wrap{margin-bottom:26px}
-    .dw-process{padding:6px;border-radius:16px}
-    .dw-process-step{min-width:96px;padding:11px 10px;gap:6px}
-    .dw-process-icon{width:22px;height:22px}
-    .dw-process-label{font-size:12.5px;line-height:1.6}
-    .dw-tools{grid-template-columns:1fr}
-    .dw-tool{width:100%;max-width:none;min-width:0}
+    .dw-stepper-wrap{margin-bottom:24px}
+    .dw-stepper{padding:6px;border-radius:15px}
+    .dw-step{width:124px;flex-basis:124px;min-height:50px;padding:9px 9px;gap:7px;font-size:12px}
+    .dw-step-no{width:24px;height:24px;flex-basis:24px;font-size:9px}
+    .dw-flow-info{align-items:flex-start;padding:17px 18px;gap:14px}
+    .dw-flow-copy h3{font-size:20px}
+    .dw-flow-copy p:last-child{font-size:13px}
+    .dw-nav{gap:6px;padding-top:3px}
+    .dw-nav button{width:36px;height:36px;border-radius:9px;font-size:20px}
+    .dw-resources{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 18px}
+    .dw-resource{justify-content:space-between;width:100%;min-width:0;padding:0 11px;font-size:12px}
+    .dw-resource-sep{display:none}
+    .dw-downloads{grid-column:1 / -1;display:grid;grid-template-columns:auto 1fr 1fr;gap:7px;width:100%}
+    .dw-download-label{font-size:11px}
+    .dw-download{min-width:0;padding:0 8px;font-size:11px}
     .dev-apply{padding:0 0 82px}
     .apply-layout{padding:26px 22px;border-radius:22px}
     .apply-intro{padding-bottom:198px}
@@ -135,48 +192,69 @@
 </head>
 <body>
 
-<div class="mobile-menu" id="mm">
-  <button class="mm-close" onclick="toggleMenu()">×</button>
-  <a href="index.html" onclick="toggleMenu()">首页</a>
-  <a href="dev.html" onclick="toggleMenu()">创建智能体</a>
-  <a href="https://intelliland.cn/dev-app" target="_blank" rel="noopener" style="color:var(--accent)">立即体验</a>
-</div>
+<div data-site-header data-active="dev" data-cta-href="https://intelliland.cn/dev-app" data-cta-target="_blank" data-mobile-cta-arrow="false"></div>
+<div data-intelliland-hero></div>
 
-<header id="hdr">
+<!-- ============ 平台能力 ============ -->
+<section class="plat-intro" id="platform">
   <div class="wrap">
-    <nav>
-      <a class="brand" href="index.html">
-        <span class="logo"></span>
-        <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
-      </a>
-      <div class="navlinks">
-        <a href="index.html">首页</a>
-        <a href="dev.html" class="active">创建智能体</a>
-      </div>
-      <div class="nav-actions">
-        <a class="btn btn-dark" href="https://intelliland.cn/dev-app" target="_blank" rel="noopener">立即体验</a>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      </div>
-    </nav>
-  </div>
-</header>
+    <div class="sec-head reveal">
+      <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">平台能力</h2>
+      <p class="sub">我们把基础设施做好，让你专注 Agent 本身的能力与体验。</p>
+    </div>
 
-<!-- ============ 品牌字标 Banner ============ -->
-<section class="hero-brand">
-  <div class="wrap">
-    <h1 class="brandmark reveal in" aria-label="Intelliland">
-      <img class="bm-mark" src="assets/intelliland-mark.svg" alt="" />
-      <span>Intelli</span>
-      <span class="bm-avatars" aria-hidden="true">
-        <i><img src="assets/avatars/bedtime.jpg" alt="" /></i>
-        <i><img src="assets/avatars/turtlesoup.jpg" alt="" /></i>
-        <i><img src="assets/avatars/memory.jpg" alt="" /></i>
-        <i><img src="assets/avatars/artisan.jpg" alt="" /></i>
-        <i><img src="assets/avatars/picturebook.jpg" alt="" /></i>
-      </span>
-      <span class="bm-type" aria-hidden="true"></span>
-      <span>land</span>
-    </h1>
+    <!-- 工作流格子条：点击切换下方卡片内容 -->
+    <div class="pf-strip-wrap reveal" data-d="1">
+      <div class="pf-strip" id="platTabs" role="tablist" aria-label="平台能力切换">
+        <button type="button" class="pf-step" role="tab">
+          <span class="pf-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20h4L18.4 9.6a2 2 0 0 0-2.8-2.8L5 17.4z"></path><path d="M14 8.5l2.8 2.8"></path></svg>
+          </span>
+          <b>构建</b>
+          <span>描述想法，快速生成</span>
+        </button>
+        <button type="button" class="pf-step" role="tab">
+          <span class="pf-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M10 8.5l5.5 3.5-5.5 3.5z"></path></svg>
+          </span>
+          <b>运行</b>
+          <span>沙箱托管，即时可用</span>
+        </button>
+        <button type="button" class="pf-step" role="tab">
+          <span class="pf-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"></circle><circle cx="17" cy="6" r="2.5"></circle><circle cx="17" cy="18" r="2.5"></circle><path d="M8.2 10.8l6.6-3.6"></path><path d="M8.2 13.2l6.6 3.6"></path></svg>
+          </span>
+          <b>分享</b>
+          <span>一键分享给更多用户</span>
+        </button>
+        <button type="button" class="pf-step" role="tab">
+          <span class="pf-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"></circle><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"></path><path d="M16 5.7a3 3 0 0 1 0 5.6"></path><path d="M18.5 19.5a5.5 5.5 0 0 0-3-4.9"></path></svg>
+          </span>
+          <b>协作</b>
+          <span>多人参与，共同打磨</span>
+        </button>
+        <button type="button" class="pf-step" role="tab">
+          <span class="pf-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"></ellipse><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13"></path><path d="M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"></path></svg>
+          </span>
+          <b>数据沉淀</b>
+          <span>交互积累，越用越有价值</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 切换卡片：左文案 + 右配图，随上方格子轮播 -->
+    <div class="plat-position reveal" data-d="2" id="platCard">
+      <div class="pp-copy">
+        <span class="sc-badge" id="ppBadge"></span>
+        <h3 id="ppTitle"></h3>
+        <p id="ppDesc"></p>
+      </div>
+      <div class="pp-visual">
+        <img class="pp-img" id="ppImg" src="assets/platform/build.png" alt="自然语言构建：描述想法即可生成 Agent" width="1448" height="1086" decoding="async" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -187,65 +265,42 @@
       <h2><img class="sec-star" src="assets/sparkle.png" alt="" aria-hidden="true">创建智能体</h2>
       <p class="sub">描述想法，生成可发布的 Agent。</p>
     </div>
-    <div class="dw-process-wrap reveal" data-d="1" aria-label="创建流程">
-      <div class="dw-process">
-        <div class="dw-process-step">
-          <span class="dw-process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M20.5 7.8 12 3 3.5 7.8v8.4L12 21l8.5-4.8z"></path><path d="M3.7 8 12 12.7 20.3 8"></path><path d="M12 12.7V21"></path></svg>
-          </span>
-          <span class="dw-process-label">导入 Plugin</span>
-        </div>
-        <div class="dw-process-step">
-          <span class="dw-process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-10.8 6.7L4 19.5l1.3-4.1A7.5 7.5 0 1 1 20 11.5z"></path><path d="M9 10.5h6"></path><path d="M9 13.5h4"></path></svg>
-          </span>
-          <span class="dw-process-label">描述想法</span>
-        </div>
-        <div class="dw-process-step">
-          <span class="dw-process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 6.6C10.4 5.1 7.9 4.6 5 5.1v12.5c2.9-.5 5.4 0 7 1.5 1.6-1.5 4.1-2 7-1.5V5.1c-2.9-.5-5.4 0-7 1.5z"></path><path d="M12 6.6V19"></path></svg>
-          </span>
-          <span class="dw-process-label">生成 Agent</span>
-        </div>
-        <div class="dw-process-step">
-          <span class="dw-process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L20 9"></path><path d="M20 4.2V9h-4.8"></path><path d="M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4 15"></path><path d="M4 19.8V15h4.8"></path></svg>
-          </span>
-          <span class="dw-process-label">调试预览</span>
-        </div>
-        <div class="dw-process-step">
-          <span class="dw-process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 12.5 10 18 20 6"></path><path d="M5 5h14v14H5z"></path></svg>
-          </span>
-          <span class="dw-process-label">申请发布</span>
+    <div class="dw-stepper-wrap reveal" data-d="1">
+      <div class="dw-stepper-scroll">
+        <div class="dw-stepper" id="devTabs" role="tablist" aria-label="创建智能体流程">
+          <button type="button" class="dw-step on" id="devTab01" role="tab" aria-selected="true" aria-controls="devPanel" tabindex="0"><span class="dw-step-no">01</span><span class="dw-step-label">复制仓库地址</span></button>
+          <button type="button" class="dw-step" id="devTab02" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">02</span><span class="dw-step-label">粘贴给 Coding Agent</span></button>
+          <button type="button" class="dw-step" id="devTab03" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">03</span><span class="dw-step-label">自动安装 Plugin</span></button>
+          <button type="button" class="dw-step" id="devTab04" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">04</span><span class="dw-step-label">描述 Agent 需求</span></button>
+          <button type="button" class="dw-step" id="devTab05" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">05</span><span class="dw-step-label">生成 Agent 工程</span></button>
+          <button type="button" class="dw-step" id="devTab06" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">06</span><span class="dw-step-label">上传 Agent</span></button>
+          <button type="button" class="dw-step" id="devTab07" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">07</span><span class="dw-step-label">同步并调试</span></button>
+          <button type="button" class="dw-step" id="devTab08" role="tab" aria-selected="false" aria-controls="devPanel" tabindex="-1"><span class="dw-step-no">08</span><span class="dw-step-label">发布公开</span></button>
         </div>
       </div>
     </div>
-    <div class="dev-workflow reveal" data-d="2">
-      <div class="dw-visual" aria-hidden="true">
-        <img src="assets/dev/agent-builder-visual.jpg" alt="" loading="eager">
+    <div class="dev-workflow reveal" data-d="2" id="devCard">
+      <div class="dw-stage" id="devPanel" role="tabpanel" aria-labelledby="devTab01" tabindex="0">
+        <img id="dwStepImage" src="assets/dev/steps/step-01-copy-github-url.png" alt="步骤 1：复制 GitHub 仓库地址" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async">
       </div>
-      <div class="dw-copy">
-        <div class="dw-head">
-          <span class="sc-badge">Agent Builder</span>
-          <h3>把想法变成可运行的 Agent</h3>
-          <p>写下目标和使用场景，Builder 生成配置，Dev Client 负责预览验证。</p>
+      <div class="dw-flow-info">
+        <div class="dw-flow-copy" aria-live="polite">
+          <p class="dw-flow-count" id="dwCount">01 / 08</p>
+          <h3 id="dwTitle">复制 GitHub 仓库地址</h3>
+          <p id="dwDesc">从 GitHub 复制项目链接，作为创建 Agent 的起点。</p>
         </div>
-        <div class="dw-tools" id="tools">
-          <div class="dw-tool">
-            <span class="dw-label">Builder</span>
-            <div>
-              <h4>Agent Builder</h4>
-              <p>整理角色、工具和运行配置。</p>
-            </div>
-          </div>
-          <div class="dw-tool">
-            <span class="dw-label">Client</span>
-            <div>
-              <h4>Dev Client</h4>
-              <p>本地预览、调试和验证。</p>
-            </div>
-          </div>
+        <div class="dw-nav" aria-label="切换创建步骤">
+          <button type="button" id="dwPrev" aria-label="上一步" title="上一步">←</button>
+          <button type="button" id="dwNext" aria-label="下一步" title="下一步">→</button>
+        </div>
+      </div>
+      <div class="dw-resources" aria-label="相关工具">
+        <a class="dw-resource" href="https://github.com/uselessspace/freedeepagents-activity-builder" target="_blank" rel="noopener"><span>Agent Builder</span><span class="dw-resource-note">GitHub</span></a>
+        <span class="dw-resource-sep" aria-hidden="true"></span>
+        <div class="dw-downloads" aria-label="Dev Client 下载选项">
+          <span class="dw-download-label">Dev Client</span>
+          <a class="dw-download" href="https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-macOS-arm64.dmg" target="_blank" rel="noopener">下载 Mac 版</a>
+          <a class="dw-download" href="https://github.com/uselessspace/freedeepagents-dev-client/releases/download/v0.3.0/FreeDeepAgents-Dev-Client-windows-x64.zip" target="_blank" rel="noopener">下载 Windows 版</a>
         </div>
       </div>
     </div>
@@ -331,6 +386,7 @@
 
 <div id="footer"></div>
 
+<script src="components.js"></script>
 <script src="data.js"></script>
 <script>
 function submitApply(e){
@@ -339,31 +395,134 @@ function submitApply(e){
   e.target.reset();
 }
 
-/* 手机端品牌字标打字机：与首页保持一致 */
-(function(){
-  const el = document.querySelector('.bm-type');
-  if (!el) return;
-  const WORDS = ['睡前陪伴','聚会推理','记忆珍藏','知识探索','绘本创作'];
-  const mq = window.matchMedia('(max-width:560px)');
-  let wi = 0, ci = 0, deleting = false, timer = null, running = false;
-  function tick(){
-    const w = WORDS[wi];
-    if (!deleting){
-      ci++; el.textContent = w.slice(0, ci);
-      if (ci >= w.length){ deleting = true; timer = setTimeout(tick, 1200); return; }
-      timer = setTimeout(tick, 140);
-    } else {
-      ci--; el.textContent = w.slice(0, ci);
-      if (ci <= 0){ deleting = false; wi = (wi + 1) % WORDS.length; timer = setTimeout(tick, 320); return; }
-      timer = setTimeout(tick, 70);
-    }
+/* ============ 平台能力 · 格子轮播（与首页场景切换同构） ============ */
+const PLAT_TABS = [
+  { badge:'Agent Builder', title:'描述想法，生成可运行的 Agent',
+    desc:'用自然语言写下目标与使用场景，Builder 自动生成角色、工具与运行配置，几分钟内得到一个可运行的 Agent。',
+    img:'assets/platform/build.png', alt:'自然语言构建：描述想法即可生成 Agent' },
+  { badge:'AgentRuntime', title:'自带沙箱的 AgentRuntime',
+    desc:'无需自建运行时。平台内置安全沙箱，Agent 的代码执行与工具调用都在隔离环境中完成，开箱即用。',
+    img:'assets/platform/run.png', alt:'省去搭建与运维：Agent 在受控环境中直接运行' },
+  { badge:'部署与分享', title:'自动化部署，一键分享给用户',
+    desc:'提交即上线，无需手动发布流程。Agent 以链接形式分享，平台托管长期在线，用户打开即用。',
+    img:'assets/platform/share.png', alt:'自动化部署：一键分享并由平台长期托管' },
+  { badge:'多人协作', title:'多人参与，共同打磨一个 Agent',
+    desc:'Agent 不止是一个人的工具。邀请伙伴一起使用、一起共创，在协作中让 Agent 持续成长。',
+    img:'assets/platform/collab.png', alt:'多人参与：团队共同使用、反馈和改进 Agent' },
+  { badge:'平台定位', title:'长期使用的 Agent 系统，而非一次性应用',
+    desc:'应用解决一次性任务，用完即走；Agent 系统在长期交互中持续沉淀对话、记忆与数据，越用越懂你。这是 intelliland 与其他平台最根本的差异。',
+    img:'assets/platform/data.png', alt:'长期使用的 Agent 系统：持续沉淀记忆与数据' }
+];
+const platCardEl = document.getElementById('platCard');
+const platSteps = [...document.querySelectorAll('#platTabs .pf-step')];
+const ppBadge = document.getElementById('ppBadge');
+const ppTitle = document.getElementById('ppTitle');
+const ppDesc = document.getElementById('ppDesc');
+const ppImg = document.getElementById('ppImg');
+let platCur = 0, platAuto = null, platTouched = false;
+
+PLAT_TABS.forEach(t => { const pre = new Image(); pre.src = t.img; });
+
+function platApply(t){
+  ppBadge.textContent = t.badge;
+  ppTitle.textContent = t.title;
+  ppDesc.textContent = t.desc;
+  ppImg.src = t.img;
+  ppImg.alt = t.alt;
+}
+function platShow(i, instant){
+  platCur = i;
+  platSteps.forEach((s, j) => {
+    s.classList.toggle('on', j === i);
+    s.setAttribute('aria-selected', j === i);
+  });
+  if (instant){ platApply(PLAT_TABS[i]); return; }
+  platCardEl.classList.add('sc-out');
+  setTimeout(() => { platApply(PLAT_TABS[i]); platCardEl.classList.remove('sc-out'); }, 240);
+}
+function platRestart(){ clearInterval(platAuto); platAuto = setInterval(() => platShow((platCur + 1) % PLAT_TABS.length), 6000); }
+platSteps.forEach((s, i) => {
+  const go = () => { clearInterval(platAuto); if (i !== platCur) platShow(i); };
+  s.addEventListener('pointerenter', go);   // 鼠标移到格子即切换
+  s.addEventListener('click', go);          // 兼容点击/触屏
+});
+platShow(0, true);
+platRestart();
+/* 指针在格子条或卡片上时暂停轮播，离开后恢复 */
+[document.getElementById('platTabs'), platCardEl].forEach(el => {
+  el.addEventListener('pointerenter', () => clearInterval(platAuto));
+  el.addEventListener('pointerleave', platRestart);
+});
+
+/* ============ 创建智能体 · 八步流程 ============ */
+const DEV_TABS = [
+  { title:'复制 GitHub 仓库地址', desc:'从 GitHub 复制项目链接，作为创建 Agent 的起点。', img:'assets/dev/steps/step-01-copy-github-url.png', alt:'步骤 1：复制 GitHub 仓库地址' },
+  { title:'粘贴给 Coding Agent', desc:'将仓库链接粘贴给 Coding Agent，让它读取项目结构与上下文。', img:'assets/dev/steps/step-02-paste-to-coding-agent.png', alt:'步骤 2：把仓库链接粘贴给 Coding Agent' },
+  { title:'自动安装 Plugin', desc:'Coding Agent 自动分析项目依赖并安装创建 Agent 所需的 Plugin。', img:'assets/dev/steps/step-03-install-plugins.png', alt:'步骤 3：Coding Agent 自动安装 Plugin' },
+  { title:'描述 Agent 需求', desc:'用自然语言说明目标、交互方式和希望 Agent 完成的任务。', img:'assets/dev/steps/step-04-describe-agent.png', alt:'步骤 4：向 Coding Agent 描述 Agent 需求' },
+  { title:'生成 Agent 工程', desc:'根据需求生成可运行的 Agent 工程，并提供完整的项目文件。', img:'assets/dev/steps/step-05-generate-project.png', alt:'步骤 5：Coding Agent 生成 Agent 工程' },
+  { title:'上传 Agent', desc:'将生成的工程包上传到 Dev Client，准备进入运行环境。', img:'assets/dev/steps/step-06-upload-agent.png', alt:'步骤 6：通过 Dev Client 上传 Agent 工程' },
+  { title:'同步并调试', desc:'同步到服务器后查看运行日志与预览，完成最后的调试验证。', img:'assets/dev/steps/step-07-sync-and-test.png', alt:'步骤 7：同步到服务器并调试运行' },
+  { title:'发布公开', desc:'发布到智能体市场，让用户可以发现并直接使用你的 Agent。', img:'assets/dev/steps/step-08-publish.png', alt:'步骤 8：发布 Agent 到智能体市场' }
+];
+const devCardEl = document.getElementById('devCard');
+const devPanelEl = document.getElementById('devPanel');
+const devSteps = [...document.querySelectorAll('#devTabs .dw-step')];
+const dwStepImage = document.getElementById('dwStepImage');
+const dwCount = document.getElementById('dwCount');
+const dwTitle = document.getElementById('dwTitle');
+const dwDesc = document.getElementById('dwDesc');
+const dwPrev = document.getElementById('dwPrev');
+const dwNext = document.getElementById('dwNext');
+let devCur = 0;
+let devChangeTimer = null;
+
+function devApplyTab(t, index){
+  dwStepImage.src = t.img;
+  dwStepImage.alt = t.alt;
+  dwCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(DEV_TABS.length).padStart(2, '0')}`;
+  dwTitle.textContent = t.title;
+  dwDesc.textContent = t.desc;
+}
+function devShow(index, instant = false){
+  const next = (index + DEV_TABS.length) % DEV_TABS.length;
+  devCur = next;
+  devSteps.forEach((step, stepIndex) => {
+    const selected = stepIndex === next;
+    step.classList.toggle('on', selected);
+    step.setAttribute('aria-selected', selected);
+    step.tabIndex = selected ? 0 : -1;
+  });
+  devPanelEl.setAttribute('aria-labelledby', devSteps[next].id);
+  clearTimeout(devChangeTimer);
+  if (instant){
+    devApplyTab(DEV_TABS[next], next);
+    return;
   }
-  function start(){ if (running) return; running = true; wi = 0; ci = 0; deleting = false; tick(); }
-  function stop(){ running = false; clearTimeout(timer); timer = null; el.textContent = ''; }
-  function apply(){ mq.matches ? start() : stop(); }
-  mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
-  apply();
-})();
+  devCardEl.classList.add('sc-out');
+  devChangeTimer = setTimeout(() => {
+    devApplyTab(DEV_TABS[next], next);
+    devCardEl.classList.remove('sc-out');
+  }, 220);
+}
+devSteps.forEach((step, index) => {
+  step.addEventListener('click', () => devShow(index));
+  step.addEventListener('keydown', event => {
+    let next = null;
+    if (event.key === 'ArrowRight') next = (index + 1) % DEV_TABS.length;
+    if (event.key === 'ArrowLeft') next = (index - 1 + DEV_TABS.length) % DEV_TABS.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = DEV_TABS.length - 1;
+    if (next === null) return;
+    event.preventDefault();
+    devShow(next);
+    devSteps[next].focus();
+  });
+});
+dwPrev.addEventListener('click', () => devShow(devCur - 1));
+dwNext.addEventListener('click', () => devShow(devCur + 1));
+devShow(0, true);
+
 </script>
 <script src="footer.js"></script>
 <script src="app.js"></script>

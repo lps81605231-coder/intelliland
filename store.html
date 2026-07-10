@@ -13,55 +13,8 @@
 </head>
 <body>
 
-<div class="mobile-menu" id="mm">
-  <button class="mm-close" onclick="toggleMenu()">×</button>
-  <a href="index.html" onclick="toggleMenu()">首页</a>
-  <a href="store.html" onclick="toggleMenu()">智能体市场</a>
-  <a href="dev.html" onclick="toggleMenu()">创建智能体</a>
-  <a href="https://intelliland.cn/app" style="color:var(--accent)">立即体验 →</a>
-</div>
-
-<header id="hdr">
-  <div class="wrap">
-    <nav>
-      <a class="brand" href="index.html">
-        <span class="logo"></span>
-        <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
-      </a>
-      <div class="navlinks">
-        <a href="index.html">首页</a>
-        <a href="dev.html">创建智能体</a>
-      </div>
-      <div class="nav-actions">
-        <a class="btn btn-dark" href="https://intelliland.cn/app">立即体验</a>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<!-- ============ 品牌字标 Banner ============ -->
-<section class="hero-brand">
-  <div class="wrap">
-    <a class="store-home-float" href="index.html" aria-label="返回首页">
-      <span class="home-float-ic" aria-hidden="true">←</span>
-      <span>返回首页</span>
-    </a>
-    <h1 class="brandmark reveal in" aria-label="Intelliland">
-      <img class="bm-mark" src="assets/intelliland-mark.svg" alt="" />
-      <span>Intelli</span>
-      <span class="bm-avatars" aria-hidden="true">
-        <i><img src="assets/avatars/bedtime.jpg" alt="" /></i>
-        <i><img src="assets/avatars/turtlesoup.jpg" alt="" /></i>
-        <i><img src="assets/avatars/memory.jpg" alt="" /></i>
-        <i><img src="assets/avatars/artisan.jpg" alt="" /></i>
-        <i><img src="assets/avatars/picturebook.jpg" alt="" /></i>
-      </span>
-      <span class="bm-type" aria-hidden="true"></span>
-      <span>land</span>
-    </h1>
-  </div>
-</section>
+<div data-site-header data-active="store" data-show-nav="false"></div>
+<div data-intelliland-hero data-back-home="true"></div>
 
 <!-- ============ 智能体市场 ============ -->
 <section class="scenes store-market" id="market">
@@ -97,6 +50,7 @@
 
 <div id="footer"></div>
 
+<script src="components.js"></script>
 <script src="data.js"></script>
 <script>
 const grid = document.getElementById('grid');
@@ -122,23 +76,34 @@ const CAT_ICONS = {
   "创作":"<path d='M4 20h4L18.4 9.6a2 2 0 0 0-2.8-2.8L5 17.4z'/><path d='M14 8.5l2.8 2.8'/>",
   "治愈":"<path d='M12 20.3s-7-4.6-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 5c-2.3 4.4-9.3 9.3-9.3 9.3z'/>"
 };
-/* 渲染分类 */
-CATEGORIES.forEach(c => {
+/* 「全部」图标（九宫格） */
+const ALL_ICON = "<rect x='3' y='3' width='7' height='7' rx='1.6'/><rect x='14' y='3' width='7' height='7' rx='1.6'/><rect x='3' y='14' width='7' height='7' rx='1.6'/><rect x='14' y='14' width='7' height='7' rx='1.6'/>";
+
+/* 悬停即切换分类（首项为「全部」，name=null 表示不筛选） */
+function selectCat(name){
+  if (activeCat === name) return;
+  activeCat = name;
+  qEl.value = '';
+  expanded = false;
+  syncCats();
+  renderGrid();
+}
+
+/* 渲染分类：全部 + 各场景 */
+const CAT_LIST = [{ name: null, label: '全部', icon: ALL_ICON },
+  ...CATEGORIES.map(c => ({ name: c.name, label: c.name, icon: CAT_ICONS[c.name] || '' }))];
+CAT_LIST.forEach(c => {
   const el = document.createElement('div');
   el.className = 'cat' + (activeCat === c.name ? ' active' : '');
-  el.innerHTML = `<span class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${CAT_ICONS[c.name]||''}</svg></span><span>${c.name}</span>`;
-  el.onclick = () => {
-    activeCat = (activeCat === c.name) ? null : c.name;
-    qEl.value = '';
-    expanded = false;
-    syncCats();
-    renderGrid();
-  };
-  el.dataset.name = c.name;
+  el.innerHTML = `<span class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${c.icon}</svg></span><span>${c.label}</span>`;
+  const go = () => selectCat(c.name);
+  el.addEventListener('pointerenter', go);  // 鼠标移到即切换
+  el.addEventListener('click', go);          // 兼容点击/触屏
+  el.dataset.name = c.name === null ? '' : c.name;
   catsEl.appendChild(el);
 });
 function syncCats(){
-  [...catsEl.children].forEach(el => el.classList.toggle('active', el.dataset.name === activeCat));
+  [...catsEl.children].forEach(el => el.classList.toggle('active', (el.dataset.name || null) === activeCat));
 }
 
 /* 渲染网格 */
@@ -205,31 +170,6 @@ function clearFilters(){ activeCat = null; qEl.value=''; expanded = false; syncC
 qEl.addEventListener('input', () => { expanded = false; renderGrid(); });
 renderGrid();
 
-/* 手机端品牌字标打字机：与首页保持一致 */
-(function(){
-  const el = document.querySelector('.bm-type');
-  if (!el) return;
-  const WORDS = ['睡前陪伴','聚会推理','记忆珍藏','知识探索','绘本创作'];
-  const mq = window.matchMedia('(max-width:560px)');
-  let wi = 0, ci = 0, deleting = false, timer = null, running = false;
-  function tick(){
-    const w = WORDS[wi];
-    if (!deleting){
-      ci++; el.textContent = w.slice(0, ci);
-      if (ci >= w.length){ deleting = true; timer = setTimeout(tick, 1200); return; }
-      timer = setTimeout(tick, 140);
-    } else {
-      ci--; el.textContent = w.slice(0, ci);
-      if (ci <= 0){ deleting = false; wi = (wi + 1) % WORDS.length; timer = setTimeout(tick, 320); return; }
-      timer = setTimeout(tick, 70);
-    }
-  }
-  function start(){ if (running) return; running = true; wi = 0; ci = 0; deleting = false; tick(); }
-  function stop(){ running = false; clearTimeout(timer); timer = null; el.textContent = ''; }
-  function apply(){ mq.matches ? start() : stop(); }
-  mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
-  apply();
-})();
 </script>
 <script src="footer.js"></script>
 <script src="app.js"></script>
