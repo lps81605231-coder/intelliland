@@ -53,7 +53,7 @@
             </a>
             ${nav}
             <div class="nav-actions">
-              <a class="btn btn-dark" href="${ctaHref}"${targetAttr}>${ctaText}</a>
+              <a class="btn cta-fx" href="${ctaHref}"${targetAttr}>${ctaText}</a>
               <button class="menu-btn" onclick="toggleMenu()">☰</button>
             </div>
           </nav>

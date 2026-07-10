@@ -50,6 +50,24 @@ section{position:relative;z-index:1}
 .btn .arr{transition:.25s}
 .btn:hover .arr{transform:translateX(4px)}
 
+/* ============ 立即体验 CTA：悬停放大 + 七彩跑马灯边框 + 点击空间穿梭 ============ */
+.cta-fx{position:relative;z-index:0;overflow:hidden;padding:12px 26px;border-radius:100px;color:#fff;font-size:15px;font-weight:700;letter-spacing:.01em;background:transparent;box-shadow:0 10px 24px -12px rgba(10,12,16,.55);transition:transform .3s cubic-bezier(.34,1.56,.5,1),box-shadow .3s ease}
+.cta-fx::before{content:"";position:absolute;left:50%;top:50%;width:230%;aspect-ratio:1/1;z-index:-2;transform:translate(-50%,-50%);background:conic-gradient(#ff4d6d,#ffb347,#ffe74a,#43e97b,#19c7e6,#4a68ff,#b06cff,#ff4d6d);opacity:0;transition:opacity .25s ease;animation:ctaSpin 2.4s linear infinite;animation-play-state:paused}
+.cta-fx::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(165deg,#20232b 0%,#0a0c10 62%);transition:inset .2s ease}
+.cta-fx:hover{transform:scale(1.08);box-shadow:0 18px 40px -14px rgba(10,12,16,.6),0 0 30px -6px rgba(122,92,255,.55)}
+/* 放大动画（约 .3s）完成后再点亮跑马灯 */
+.cta-fx:hover::before{opacity:1;animation-play-state:running;transition-delay:.3s}
+.cta-fx:hover::after{inset:2.5px;transition-delay:.3s}
+.cta-fx:active{transform:scale(1.02)}
+@keyframes ctaSpin{to{transform:translate(-50%,-50%) rotate(1turn)}}
+
+/* 空间穿梭跳转过场：先从按钮处圆形扩散盖满全屏，再进入星轨隧道 */
+.warp-overlay{position:fixed;inset:0;z-index:9999;background:#04050b;transition:clip-path .36s cubic-bezier(.4,0,.2,1)}
+.warp-overlay canvas{display:block;width:100%;height:100%}
+.warp-overlay.out{animation:warpOut .32s ease forwards}
+@keyframes warpOut{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.cta-fx,.cta-fx::before,.cta-fx::after{transition:none;animation:none}}
+
 /* nav */
 header{position:sticky;top:0;z-index:50;transition:.4s}
 header.scrolled{backdrop-filter:blur(16px) saturate(140%);background:rgba(245,246,248,.7);box-shadow:0 1px 0 var(--line)}
