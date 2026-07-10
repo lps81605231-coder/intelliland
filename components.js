@@ -49,8 +49,7 @@
         <div class="wrap">
           <nav>
             <a class="brand" href="index.html">
-              <span class="logo"></span>
-              <span class="brand-txt"><b>intelliland</b><span>精品智能体</span></span>
+              <img class="brand-img" src="assets/brand-logo.png" alt="intelliland · 精品智能体" width="626" height="120" decoding="async" />
             </a>
             ${nav}
             <div class="nav-actions">
